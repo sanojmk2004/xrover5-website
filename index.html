@@ -347,6 +347,28 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
 .tg-img { display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--bg-2); cursor: zoom-in; }
 .tg-img img { display: block; width: 100%; height: auto; }
 
+
+/* RECOMMENDED BROKERS */
+.brokers { margin-top: 22px; padding: clamp(22px, 4vw, 36px); border-radius: 20px; border: 1px solid color-mix(in oklab, var(--ion) 45%, var(--line)); background: linear-gradient(160deg, color-mix(in oklab, var(--ion) 10%, var(--surface)), var(--surface)); display: grid; gap: 24px; scroll-margin-top: 90px; }
+.brokers-head { display: grid; gap: 8px; } .brokers-head h3 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); font-weight: 600; } .brokers-head p { color: var(--muted); }
+.qsteps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; counter-reset: q; }
+@media (max-width: 760px) { .qsteps { grid-template-columns: 1fr; } }
+.qsteps li { counter-increment: q; display: grid; gap: 6px; padding: 16px; border-radius: 12px; background: var(--bg-2); border: 1px solid var(--line); }
+.qsteps li::before { content: counter(q); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font: 700 13px var(--mono); color: #1b0f05; background: var(--ember); }
+.qsteps span { color: var(--muted); font-size: 14px; }
+.broker-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 620px) { .broker-grid { grid-template-columns: 1fr; } }
+.broker { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; padding: 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg-2); text-decoration: none; transition: border-color .2s, transform .2s; }
+.broker:hover { border-color: var(--cyan); transform: translateY(-1px); }
+.blogo { display: grid; place-items: center; width: 132px; height: 56px; border-radius: 10px; padding: 6px 10px; flex: none; }
+.blogo img { max-height: 40px; width: auto; }
+.bname { font-weight: 700; }
+.bcta { font: 700 14px var(--body); color: #1b0f05; background: linear-gradient(180deg, var(--ember-hot), var(--ember)); padding: 9px 14px; border-radius: 999px; white-space: nowrap; }
+@media (max-width: 420px) { .broker { grid-template-columns: auto 1fr; } .bcta { grid-column: 1 / -1; text-align: center; } }
+.after-open { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px 24px; padding: 18px 20px; border-radius: 14px; border: 1px dashed color-mix(in oklab, var(--ember) 55%, var(--line)); }
+.after-open p { color: var(--muted); max-width: 60ch; } .after-open b { color: var(--fg); }
+.broker-risk { font-size: 12px; color: var(--muted); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
@@ -720,18 +742,18 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
       </div>
       <div class="grid g3">
         <article class="plan featured">
-          <span class="tag">Launch offer</span>
+          <span class="tag">Full access</span>
           <h3>XRover 5 Subscription</h3>
-          <div class="price">USD 300 <small>/ month</small></div>
-          <p>Special introductory pricing available for a limited period.</p>
+          <div class="price">USD 499 <small>/ month</small></div>
+          <p>Full access to XRover 5 and all its features, including Telegram notifications and the built-in strategy library.</p>
           <a class="btn btn-primary" href="#contact">Get started</a>
         </article>
         <article class="plan">
-          <span class="tag">Webinar special</span>
-          <h3>Webinar Participants</h3>
-          <div class="price">USD 249 <small>/ month</small></div>
-          <p>Available only for qualified webinar participants.</p>
-          <a class="btn btn-ghost" href="#contact">Check eligibility</a>
+          <span class="tag">Special offer</span>
+          <h3>Recommended Broker Members</h3>
+          <div class="price" style="font-size:1.9rem">Special price</div>
+          <p>Special offer pricing for qualified members trading with our recommended brokers. Contact us to check your eligibility.</p>
+          <a class="btn btn-ghost" href="#brokers" data-scroll="brokers">See recommended brokers</a>
         </article>
         <article class="plan">
           <span class="tag">Try it first</span>
@@ -740,6 +762,38 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
           <p>Experience XRover 5 in real market conditions with a live walkthrough and Q&amp;A.</p>
           <a class="btn btn-ghost" href="#contact">Book Demo Now</a>
         </article>
+      </div>
+      <div class="brokers" id="brokers">
+        <div class="brokers-head">
+          <span class="eyebrow">Special offer · How to qualify</span>
+          <h3>Open an account with a recommended broker</h3>
+          <p>Get special offer pricing on XRover 5 by trading with one of our recommended brokers.</p>
+        </div>
+        <ol class="qsteps">
+          <li><b>Open your account</b><span>Use one of the links below to open an account with Octa or Switch Markets.</span></li>
+          <li><b>Contact us</b><span>After your account is opened, send us your name and broker account details.</span></li>
+          <li><b>Get your special price</b><span>We confirm your eligibility and activate your special offer pricing.</span></li>
+        </ol>
+        <div class="broker-grid">
+          <a class="broker" href="https://clickto.trade/bWvhiqPpr8h?ib=7377800" target="_blank" rel="noopener sponsored">
+            <span class="blogo" style="background:#c4c0ad"><img src="assets/broker-octa.png" alt="Octa" width="177" height="64"></span>
+            <span class="bname">Octa</span>
+            <span class="bcta">Open account ↗</span>
+          </a>
+          <a class="broker" href="https://cabinet.switchmarkets.com/links/go/14777" target="_blank" rel="noopener sponsored">
+            <span class="blogo" style="background:#000c2e"><img src="assets/broker-switch.png" alt="Switch Markets" width="260" height="82"></span>
+            <span class="bname">Switch Markets</span>
+            <span class="bcta">Open account ↗</span>
+          </a>
+        </div>
+        <div class="after-open">
+          <p><b>Already opened your account?</b> Contact us so we can confirm your eligibility and activate your special price.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#contact">Contact us</a>
+            <a class="btn btn-ghost" href="https://wa.me/919747369666?text=Hi%2C%20I%20have%20opened%20my%20broker%20account%20for%20the%20XRover%205%20special%20offer." target="_blank" rel="noopener">Message on WhatsApp ↗</a>
+          </div>
+        </div>
+        <p class="broker-risk">Broker accounts are provided by the brokers, not by XDemat. Trading forex and CFDs carries a high risk of losing money. Read each broker's terms before opening an account.</p>
       </div>
       <p class="fine">Future subscription pricing may change as additional features and services are introduced.</p>
     </div>
@@ -839,7 +893,7 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
   <div class="wrap page-head">
     <span class="eyebrow">Contact Us</span>
     <h1>Talk to the XRover team</h1>
-    <p class="lead">Book a demo or ask about pricing and the webinar special. Send us a message, email, call, or follow us on Instagram, TradingView, WhatsApp and YouTube.</p>
+    <p class="lead">Book a demo or ask about pricing and the recommended broker offer. Send us a message, email, call, or follow us on Instagram, TradingView, WhatsApp and YouTube.</p>
   </div>
 
   <section class="band" style="padding-top:36px">
@@ -976,6 +1030,13 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
     const close = () => { lb.remove(); btn.focus(); };
     lb.addEventListener('click', close); lb.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
     document.body.appendChild(lb); lb.focus();
+  }));
+
+
+  // In-page scroll links (hash routing uses #page names, so scroll by id)
+  document.querySelectorAll('[data-scroll]').forEach(a => a.addEventListener('click', e => {
+    const t = document.getElementById(a.dataset.scroll); if (!t) return;
+    e.preventDefault(); t.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   }));
 
   // Copy buttons
