@@ -7,9 +7,9 @@ function page_start(string $title, string $active = '', bool $admin = false): vo
   if ($admin) {
     $nav = ['admin/index.php' => 'Overview', 'admin/accounts.php' => 'Accounts', 'admin/commissions.php' => 'Commissions',
             'admin/withdrawals.php' => 'Payouts', 'admin/users.php' => 'Customers', 'admin/brokers.php' => 'Brokers',
-            'admin/settings.php' => 'Settings', 'dashboard.php' => '← Customer view'];
+            'admin/settings.php' => 'Settings', 'profile.php' => 'My profile', 'dashboard.php' => '← Customer view'];
   } elseif ($u) {
-    $nav = ['dashboard.php' => 'Dashboard', 'brokers.php' => 'Open Account', 'accounts.php' => 'My Accounts', 'wallet.php' => 'Wallet & Payouts'];
+    $nav = ['dashboard.php' => 'Dashboard', 'brokers.php' => 'Open Account', 'accounts.php' => 'My Accounts', 'wallet.php' => 'Wallet & Payouts', 'profile.php' => 'Profile'];
     if ($u['role'] === 'admin') $nav['admin/index.php'] = 'Admin';
   } else {
     $nav = ['index.php' => 'How it works', 'brokers.php' => 'Brokers', 'login.php' => 'Log in'];

@@ -17,7 +17,8 @@ set_exception_handler(function (Throwable $ex) {
   error_log('Rebate portal: ' . $ex);
   if (PHP_SAPI === 'cli') { fwrite(STDERR, $ex . "\n"); exit(1); }
   http_response_code(500);
-  $hint = $ex instanceof PDOException ? ' The database could not be reached — open /rebate/check.php (before setup) or check rebate-config.php.' : '';
+  // Database errors show their short message (no file paths, no query values) so problems can be diagnosed.
+  $hint = $ex instanceof PDOException ? ' Database error: ' . preg_replace('/\(using password:.*\)/', '', mb_substr($ex->getMessage(), 0, 300)) : '';
   echo '<!doctype html><meta name="viewport" content="width=device-width"><body style="background:#0a0b12;color:#eceef6;font-family:system-ui;padding:24px"><h1>Something went wrong</h1><p>Please try again in a minute.' . htmlspecialchars($hint) . '</p>';
 });
 
