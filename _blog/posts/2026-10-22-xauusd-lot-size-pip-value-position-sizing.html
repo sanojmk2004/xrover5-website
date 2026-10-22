@@ -1,0 +1,60 @@
+<!--
+slug: xauusd-lot-size-pip-value-position-sizing
+category: Risk & Money
+title: XAUUSD Lot Size, Pip Value and Position Sizing Explained
+description: How much is one pip on gold? Learn XAUUSD lot sizes, pip and point values, margin, and a simple formula to size every gold trade by risk.
+date: 2026-10-22
+-->
+<p>Ask five traders "how much is a pip on gold?" and you may get three different answers. Confusion about XAUUSD contract sizes is one of the most common reasons beginners take positions that are far too big. This guide clears it up and gives you a simple formula to size every trade.</p>
+
+<h2>Lot sizes on XAUUSD</h2>
+<p>On most MetaTrader-style platforms, one standard lot of XAUUSD equals <strong>100 troy ounces</strong> of gold.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Lot size</th><th>Ounces</th><th>Profit/loss for a $1.00 move in gold</th></tr></thead>
+<tbody>
+<tr><td>1.00 (standard)</td><td>100 oz</td><td>$100</td></tr>
+<tr><td>0.10 (mini)</td><td>10 oz</td><td>$10</td></tr>
+<tr><td>0.01 (micro)</td><td>1 oz</td><td>$1</td></tr>
+</tbody></table></div>
+<div class="note"><b>Always confirm with your broker:</b> a few brokers use a different contract size. Check the "contract specification" for XAUUSD on your platform before trading.</div>
+
+<h2>Pips and points: why everyone disagrees</h2>
+<p>Gold is usually quoted with two decimal places, for example 4,000.25. The smallest price step is <strong>$0.01</strong>, often called a point. The trouble is that different traders and brokers define a "pip" differently:</p>
+<ul>
+<li>Many traders and signal providers call <strong>$0.10</strong> one pip. With this definition, a move from 4,000.00 to 4,001.00 is 10 pips, and one pip is worth <strong>$10 per standard lot</strong>.</li>
+<li>Some platforms treat <strong>$0.01</strong> as a pip, which would make the same move 100 pips.</li>
+<li>Others simply talk about a <strong>$1 move</strong> in price.</li>
+</ul>
+<p>The safest approach is to think in <strong>dollars of price movement</strong>. Whatever anyone calls it, a $1.00 move on 1 standard lot is always $100 (on a 100-ounce contract). Convert everything to that and you can't get it wrong.</p>
+
+<h2>The position sizing formula</h2>
+<p>Professional traders don't choose a lot size first. They decide how much money they are willing to lose if the trade fails, then calculate the lot size that matches.</p>
+<div class="formula">Lot size = Amount at risk ÷ (Stop-loss distance in $ × 100)</div>
+<p>Where the stop-loss distance is the difference between your entry price and stop-loss price, in dollars of gold price.</p>
+
+<h3>Worked example</h3>
+<ul>
+<li>Account balance: <strong>$1,000</strong></li>
+<li>Risk per trade: <strong>1%</strong> = $10</li>
+<li>Entry: 4,000.00, stop-loss: 3,995.00, so the stop distance is <strong>$5.00</strong></li>
+</ul>
+<p>Lot size = 10 ÷ (5 × 100) = <strong>0.02 lots</strong>.</p>
+<p>If the stop is hit you lose about $10 (plus spread and any slippage), exactly the 1% you planned. If instead you had used a "standard" 0.10 lot without calculating, that same stop would cost $50, or 5% of your account on a single trade.</p>
+
+<h3>A wider stop means a smaller position</h3>
+<p>If your analysis needs a $10 stop on the same account, the formula gives 10 ÷ (10 × 100) = 0.01 lots. Your risk in money stays the same; only the position size changes. This is how you can respect gold's volatility without blowing up your account.</p>
+
+<h2>Margin and leverage</h2>
+<p>Margin is the deposit your broker holds while a trade is open. A simplified calculation:</p>
+<div class="formula">Margin = Price × 100 × Lots ÷ Leverage</div>
+<p>At a gold price of 4,000, a 0.02 lot position with 1:100 leverage needs about 4,000 × 100 × 0.02 ÷ 100 = <strong>$80</strong> of margin.</p>
+<p>Important: <strong>margin is not your risk</strong>. Your risk is set by your stop-loss and lot size. High leverage only makes it easier to open positions that are too large, which is why risk-based sizing is non-negotiable.</p>
+
+<h2>Quick checklist before every gold trade</h2>
+<ol>
+<li>Decide your risk in money (for example, 0.5%–1% of your balance).</li>
+<li>Find a logical stop-loss level based on market structure, not a random number.</li>
+<li>Calculate the lot size with the formula above.</li>
+<li>Add a buffer for spread, especially near news or during quiet hours.</li>
+</ol>
+<p>XRover 5's Intelligent Stop Loss Zones place your stop at logical market-based levels, and the built-in strategy library lets you set your own risk per trade. Combine that with the formula above and every XAUUSD position you open has a known, controlled risk.</p>
