@@ -93,7 +93,9 @@ page_start('My trading accounts', 'accounts.php');
       <td><?= e($a['broker']) ?></td><td><?= e($a['platform']) ?></td><td class="mono"><?= e($a['login']) ?></td><td class="small"><?= e($a['server']) ?></td>
       <td><?= status_badge($a['status']) ?><?php if ($a['admin_note']): ?><div class="small muted"><?= e($a['admin_note']) ?></div><?php endif; ?></td>
       <td class="small wrap-ok"><?php
-        if ($a['sync_error']) echo '<span style="color:var(--bear)">' . e($a['sync_error']) . '</span>';
+        $src = setting('lot_source', 'none');
+        if ($src === 'none' || ($src === 'vps' && $a['platform'] !== 'MT5')) echo '<span class="muted">Updated from broker reports</span>';
+        elseif ($a['sync_error']) echo '<span style="color:var(--bear)">' . e($a['sync_error']) . '</span>';
         elseif ($a['last_sync']) echo 'Synced ' . e(date('d M, H:i', strtotime($a['last_sync'])));
         else echo '<span class="muted">Waiting for first sync</span>'; ?></td>
       <td>

@@ -1,0 +1,9 @@
+{
+  "site_url": "https://xrover5.com/rebate",
+  "token": "PASTE-SYNC-TOKEN-FROM-ADMIN-SETTINGS",
+  "interval_minutes": 30,
+  "terminals": [
+    { "broker_id": 1, "name": "Octa", "path": "C:\\Program Files\\OctaFX MetaTrader 5\\terminal64.exe" },
+    { "broker_id": 2, "name": "Switch Markets", "path": "C:\\Program Files\\Switch Markets MT5\\terminal64.exe" }
+  ]
+}

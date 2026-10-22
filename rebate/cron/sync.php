@@ -5,6 +5,7 @@ if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 require dirname(__DIR__) . '/inc/bootstrap.php';
 require dirname(__DIR__) . '/inc/metaapi.php';
 
+if (setting('lot_source', 'none') !== 'metaapi') { echo "Lot source is not MetaApi (Admin > Settings); skipping.\n"; exit(0); }
 if (!ma_token()) { echo "MetaApi token not set; skipping.\n"; exit(0); }
 
 $lock = fopen(sys_get_temp_dir() . '/xr5-rebate-sync.lock', 'c');

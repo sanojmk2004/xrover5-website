@@ -58,3 +58,21 @@ function account_estimate(array $acc): array {
   $est = $b ? $lots * (float)$b['est_commission_per_lot'] * (float)$b['rebate_pct'] / 100 : 0;
   return ['lots' => $lots, 'est_usd' => round($est, 2), 'since' => $last];
 }
+
+/** First day to (re)read for an account: 3 days before the last sync, or 7 days before it was added. */
+function sync_from_day(array $acc): string {
+  $from = $acc['synced_until'] ? strtotime($acc['synced_until']) - 3 * 86400 : strtotime($acc['created_at']) - 7 * 86400;
+  return gmdate('Y-m-d', $from);
+}
+
+/** Replaces the stored lots for $fromDay onwards with $byDay = ['Y-m-d' => ['lots' => x, 'deals' => n]]. */
+function save_lot_days(int $id, string $fromDay, array $byDay): void {
+  db()->beginTransaction();
+  q('DELETE FROM lot_days WHERE account_id = ? AND day >= ?', [$id, $fromDay]);
+  foreach ($byDay as $day => $v) {
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', (string)$day) || $day < $fromDay) continue;
+    q('INSERT INTO lot_days (account_id, day, lots, deals) VALUES (?, ?, ?, ?)', [$id, $day, round((float)$v['lots'], 2), (int)$v['deals']]);
+  }
+  db()->commit();
+  q("UPDATE accounts SET synced_until = ?, last_sync = ?, sync_error = '' WHERE id = ?", [now(), now(), $id]);
+}

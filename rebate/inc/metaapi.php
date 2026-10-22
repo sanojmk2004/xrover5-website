@@ -84,8 +84,7 @@ function ma_sync_account(array $acc): string {
 
     // 3) Read deal history and store lots per day. Re-read the last 3 days each time so late
     //    history from the terminal is picked up; whole days are replaced.
-    $from = $acc['synced_until'] ? strtotime($acc['synced_until']) - 3 * 86400 : strtotime($acc['created_at']) - 7 * 86400;
-    $fromDay = gmdate('Y-m-d', $from);
+    $fromDay = sync_from_day($acc);
     $start = $fromDay . 'T00:00:00.000Z';
     $end = gmdate('Y-m-d\TH:i:s.000\Z', time() + 60);
     $byDay = [];
@@ -103,11 +102,7 @@ function ma_sync_account(array $acc): string {
       }
       if (count($deals) < 1000) break;
     }
-    db()->beginTransaction();
-    q('DELETE FROM lot_days WHERE account_id = ? AND day >= ?', [$id, $fromDay]);
-    foreach ($byDay as $day => $v) q('INSERT INTO lot_days (account_id, day, lots, deals) VALUES (?, ?, ?, ?)', [$id, $day, round($v['lots'], 2), $v['deals']]);
-    db()->commit();
-    ma_set($id, ['synced_until' => now(), 'last_sync' => now(), 'sync_error' => '']);
+    save_lot_days($id, $fromDay, $byDay);
 
     if (setting('metaapi_undeploy', '1') === '1') ma_http('POST', MA_PROV . "/users/current/accounts/$mid/undeploy");
     return 'synced:' . count($byDay) . 'd';
