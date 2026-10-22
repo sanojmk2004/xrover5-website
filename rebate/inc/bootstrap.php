@@ -7,7 +7,8 @@ declare(strict_types=1);
 $cfgFile = getenv('REBATE_CONFIG') ?: dirname(__DIR__, 3) . '/rebate-config.php';
 if (!is_file($cfgFile)) {
   http_response_code(500);
-  exit('Rebate portal is not configured yet. Copy rebate/inc/config.sample.php to ' . htmlspecialchars($cfgFile) . ' and fill it in.');
+  // Setup steps are in the repo README (rebate-config.php goes one level above public_html).
+  exit(PHP_SAPI === 'cli' ? "Missing config: $cfgFile\n" : '<!doctype html><meta name="viewport" content="width=device-width"><body style="background:#0a0b12;color:#eceef6;font-family:system-ui;display:grid;place-items:center;min-height:90vh;margin:0"><div style="text-align:center;padding:16px"><h1>XRover 5 IB Rebates</h1><p>Opening soon. <a style="color:#45cfff" href="/">Back to xrover5.com</a></p></div>');
 }
 $CFG = require $cfgFile;
 
