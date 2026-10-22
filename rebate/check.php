@@ -38,7 +38,11 @@ if (is_array($cfg)) {
   if (extension_loaded('pdo_mysql')) {
     try {
       $pdo = new PDO($cfg['db']['dsn'], isset($cfg['db']['user']) ? $cfg['db']['user'] : null, isset($cfg['db']['pass']) ? $cfg['db']['pass'] : null, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-      add_row($rows, 'Database connection', true, 'connected');
+      $dbn = $pdo->query('SELECT DATABASE()')->fetchColumn();
+      add_row($rows, 'Database connection', true, 'connected to ' . htmlspecialchars((string)$dbn));
+      $foreign = false;
+      try { $pdo->query('SELECT 1 FROM users LIMIT 1'); try { $pdo->query('SELECT pass_hash FROM users LIMIT 1'); } catch (Throwable $e2) { $foreign = true; } } catch (Throwable $e3) {}
+      add_row($rows, 'Own database', !$foreign, $foreign ? 'this database belongs to another app (it has a different users table, e.g. the CRM). Create a separate database for the rebate portal' : 'ok');
     } catch (Throwable $e) {
       $m = $e->getMessage();
       $hint = 'check the database name, user and password in rebate-config.php';

@@ -6,6 +6,15 @@ require __DIR__ . '/inc/schema.php';
 
 foreach (schema_sql(db_driver()) as $sql) db()->exec($sql);
 
+// Refuse to run inside another app's database (e.g. the CRM), where a 'users' table already exists with other columns.
+try { db()->query('SELECT pass_hash, role, status FROM users LIMIT 1'); }
+catch (Throwable $ex) {
+  page_start('Setup');
+  echo '<div class="card form-narrow"><h1>Wrong database</h1><p>The database in rebate-config.php already has a <b>users</b> table from another app (for example the CRM). The rebate portal needs its own empty database.</p><p class="muted">cPanel → MySQL Databases: create a new database (e.g. ibrebate) and user, add the user with ALL PRIVILEGES, put those details in rebate-config.php, then open this page again.</p></div>';
+  page_end();
+  exit;
+}
+
 $lockFile = dirname($cfgFile) . '/rebate-installed.lock'; // also switches off check.php
 if (val("SELECT COUNT(*) FROM users WHERE role = 'admin'") > 0) {
   @touch($lockFile);
