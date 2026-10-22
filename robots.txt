@@ -1,5 +1,18 @@
 User-agent: *
 Allow: /
 Disallow: /send.php
+Disallow: /rebate/admin/
+Disallow: /rebate/api/
+Disallow: /rebate/cron/
+Disallow: /rebate/inc/
+Disallow: /rebate/vps/
+Disallow: /rebate/install.php
+Disallow: /rebate/check.php
+Disallow: /rebate/dashboard.php
+Disallow: /rebate/accounts.php
+Disallow: /rebate/wallet.php
+Disallow: /rebate/profile.php
+Disallow: /rebate/go.php
+Disallow: /rebate/logout.php
 
 Sitemap: https://xrover5.com/sitemap.xml

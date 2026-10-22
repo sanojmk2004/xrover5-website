@@ -20,7 +20,8 @@ def load():
         d = datetime.date.fromisoformat(meta["date"])
         posts.append({"slug": meta["slug"], "cat": meta["category"], "title": meta["title"], "desc": meta["description"],
                       "date": d.isoformat(), "date_h": d.strftime("%-d %B %Y"), "body": m.group(2),
-                      "brokers": meta.get("brokers", "").lower() in ("yes", "true", "1")})
+                      "brokers": meta.get("brokers", "").lower() in ("yes", "true", "1"),
+                      "rebate": meta.get("rebate", "").lower() in ("yes", "true", "1")})
     slugs = [p["slug"] for p in posts]
     dup = {s for s in slugs if slugs.count(s) > 1}
     if dup: sys.exit(f"duplicate slugs: {dup}")
@@ -84,7 +85,7 @@ BROKERS_BOX = """<aside class="brokers" aria-labelledby="rb-title" style="margin
         <div class="brokers-head">
           <span class="eyebrow">Our recommended brokers</span>
           <h3 id="rb-title">Open your trading account</h3>
-          <p>These are the brokers we recommend to XRover 5 members. Open your account through these links to qualify for special XRover 5 pricing.</p>
+          <p>These are the brokers we recommend to XRover 5 members. Open your account through these links to qualify for special XRover 5 pricing and <a href=\"/rebate/\" style=\"color:var(--cyan)\">XDemat IB rebates</a>.</p>
         </div>
         <div class="broker-grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
           <a class="broker" href="https://clickto.trade/bWvhiqPpr8h?ib=7377800" target="_blank" rel="noopener sponsored">
@@ -100,6 +101,15 @@ BROKERS_BOX = """<aside class="brokers" aria-labelledby="rb-title" style="margin
         </div>
         <div class="btn-row"><a class="btn btn-ghost" href="/products/#brokers">How the special offer works</a><a class="btn btn-ghost" href="/contact/">Already opened? Contact us</a></div>
         <p class="broker-risk"><b>Disclosure:</b> these are partner links. XDemat may receive a commission from the broker when you open an account through them, at no extra cost to you. Broker accounts are provided by the brokers, not by XDemat. Check that trading with any broker is permitted under the rules that apply to you (for Indian residents, RBI/FEMA rules) and read the broker's terms before opening an account. Trading forex and CFDs carries a high risk of losing money.</p>
+      </aside>"""
+
+# IB rebate box. Shown on posts whose front matter has "rebate: yes".
+REBATE_BOX = """<aside class="post-cta" style="margin-top:40px;border-color:color-mix(in oklab, var(--bull) 45%, var(--line))">
+        <span class="eyebrow">XDemat IB Rebate Program</span>
+        <h2>Get part of your trading commission back in USDT</h2>
+        <p>Open your MT4 or MT5 account with a partner broker through XDemat, connect it read-only, and receive a share of the IB commission on every lot you trade, paid to your crypto wallet. No extra cost to you.</p>
+        <div class="btn-row"><a class="btn btn-primary" href="/rebate/register.php">Create free rebate account</a><a class="btn btn-ghost" href="/rebate/">How it works</a></div>
+        <p style="font-size:13px">Rebates depend on the commission the broker actually pays and do not reduce trading risk. Check that the broker, crypto payouts and any tax on rebates are permitted where you live.</p>
       </aside>"""
 
 MENU_JS = """<script>
@@ -188,6 +198,7 @@ for i, p in enumerate(POSTS):
       <article class="article">
 {p['body'].strip()}
       </article>
+      {REBATE_BOX if p["rebate"] else ""}
       {BROKERS_BOX if p["brokers"] else ""}
       <div class="post-cta">
         <span class="eyebrow">XRover 5 · Intelligent Candle Trading System</span>

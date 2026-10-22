@@ -13,6 +13,7 @@ The blog at https://xrover5.com/blog/ is generated from the files in `_blog/post
    description: 140–160 character summary for Google and the blog card
    date: YYYY-MM-DD
    brokers: yes        (optional — adds the Recommended brokers box with XDemat's partner links)
+   rebate: yes         (optional — adds the IB Rebate Program box linking to /rebate/)
    -->
    <p>Intro…</p>
    <h2>…</h2>
@@ -27,11 +28,16 @@ The blog at https://xrover5.com/blog/ is generated from the files in `_blog/post
 Do not edit files in `blog/` by hand — they are overwritten on every build.
 
 ## Categories
-Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical Analysis · Strategy · Trading Psychology · Market Update · Brokers & Accounts · XRover 5
+Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical Analysis · Strategy · Trading Psychology · Market Update · Brokers & Accounts · XRover 5 · IB Rebates
 
 ## Writing rules
-- Audience: retail traders in India (many trade in the evening IST), beginner to intermediate. Topic focus: XAUUSD (gold).
-- 900–1,400 words, clear English, short paragraphs, practical and specific. Use IST when giving times.
+- Audience: retail traders worldwide — especially India, the Middle East, South-East Asia and Africa — beginner to intermediate.
+  Topic focus: XAUUSD (gold). Write in simple international English (many readers are not native speakers): short sentences,
+  no idioms or slang, explain every term once.
+- 900–1,400 words, short paragraphs, practical and specific. Give times in GMT first with IST in brackets,
+  e.g. "13:30 GMT (19:00 IST)", and note daylight-saving changes where relevant. Use USD for money examples.
+- Write titles and descriptions people actually search for worldwide (e.g. "forex rebate", "forex cashback",
+  "how to choose a forex broker"), with the main phrase early in the title.
 - Educational only. Never promise or imply profits, win rates or "guaranteed" results. No "get rich" language.
 - No broker names or broker links in the article text. Broker links appear only through the `brokers: yes` box (see below).
 - No specific current gold price or recent news unless you have looked it up that day and say when it applies.
@@ -47,15 +53,31 @@ Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical 
 
 ### Broker and account-opening articles
 - Stay general and educational: regulation, safety of funds, costs, platforms, execution, deposits/withdrawals, support.
-- Readers are mostly Indian residents. Explain that Indian residents must follow RBI/FEMA rules on forex trading,
-  that RBI publishes an "Alert List" of unauthorised forex platforms, and that readers should check current rules
-  and the list themselves before opening an account. Do not give legal advice or say any broker is "approved" or "legal in India".
+- Readers are worldwide: explain how to check a broker's licence with the reader's own regulator and the regulator's
+  public register (examples: FCA UK, ASIC Australia, CySEC Cyprus, FSCA South Africa) without claiming any broker holds a particular licence.
+  Include one short paragraph for Indian readers: Indian residents must follow RBI/FEMA rules on forex trading, RBI publishes an
+  "Alert List" of unauthorised forex platforms, and they should check current rules and the list themselves.
+  Do not give legal advice or say any broker is "approved" or "legal" anywhere.
 - Set `brokers: yes` in the front matter so the template adds the Recommended brokers box (Octa and Switch Markets,
   partner links, with disclosure). Never type broker links yourself — the box is the only source of the correct links.
 - The article text stays neutral and educational. It may end with one sentence pointing readers to
   "our recommended brokers below" and the XRover 5 special pricing. Don't make claims about the brokers
   (regulation, spreads, bonuses, safety) beyond that, and don't rank or review them.
 - Use `brokers: yes` only on broker and account-opening articles.
+
+### IB rebate articles (category "IB Rebates")
+- Set `rebate: yes` (adds the IB Rebate Program box). Add `brokers: yes` too on articles about opening an account for rebates.
+- How the program works (from https://xrover5.com/rebate/): trader opens an MT4/MT5 account with a partner broker through
+  XDemat's IB link → connects it with the read-only investor password → XDemat sees traded lots → when the broker pays XDemat's
+  IB commission, the trader's share goes to their balance → payout in USDT (TRC20 or BEP20) to the wallet they add, on request
+  above a minimum. Free to join; the trader's spreads and commissions are the broker's normal ones. Only accounts opened through
+  XDemat's link qualify. Investor access can view trades only; it cannot trade or withdraw.
+- Never state a specific rebate percentage, $-per-lot amount, minimum payout or payout time — they are set by the admin and can change.
+  Worked examples must say they are illustrative ("for example, if a rebate were $X per lot…").
+- Never encourage trading more, bigger or more often to earn rebates. Say plainly that a rebate lowers trading costs but does not
+  make a losing strategy profitable, and that trading risk is unchanged.
+- Remind readers to check that crypto payouts are allowed where they live and that rebates may be taxable.
+- Explaining what an IB is and how rebates/cashback work in general is fine; don't name or criticise other rebate providers.
 
 ### XRover 5 articles (category "XRover 5")
 - These can be about XRover 5 throughout, but every claim must match the real features listed above
@@ -73,9 +95,15 @@ Pick the first unused topic, or a new XAUUSD topic not already covered by a file
 Delete a line from this list when you publish it.
 - How to choose a forex broker for trading gold: a safety checklist (category: Brokers & Accounts)
 - How to open a forex trading account step by step: KYC, documents, demo, first deposit (category: Brokers & Accounts)
+- What is a forex rebate (IB cashback) and how does it work? (category: IB Rebates)
 - What makes XRover 5 the Intelligent Candle Trading System — and how it differs from ordinary candle tools (category: XRover 5)
 - Why professional traders use XRover 5: confirmation, structure and control (category: XRover 5)
+- What is an introducing broker (IB)? How IB commissions are paid and shared (category: IB Rebates)
 - XRover 5 vs traditional candlestick systems, indicators and order flow: an honest comparison (category: XRover 5)
+- How forex rebates lower your real trading cost on XAUUSD: worked examples (category: IB Rebates)
+- Is it safe to share your MT4/MT5 investor password? Read-only access explained (category: IB Rebates)
+- How to get forex rebates paid in USDT: wallets, TRC20 vs BEP20 and avoiding mistakes (category: IB Rebates)
+- Forex rebate step by step: open an account through XDemat, connect MT5 and request your first payout (category: IB Rebates)
 - XAUUSD scalping vs intraday vs swing trading: which style suits you
 - How to trade gold around Non-Farm Payrolls (and when not to)
 - Support and resistance on XAUUSD: drawing zones that matter
