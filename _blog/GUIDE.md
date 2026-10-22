@@ -25,7 +25,31 @@ The blog at https://xrover5.com/blog/ is generated from the files in `_blog/post
    and stops with an error if the front matter is incomplete or a slug is duplicated.
 3. Commit and push to `main`. The cPanel cron copies it live.
 
-Do not edit files in `blog/` by hand — they are overwritten on every build.
+Do not edit files in `blog/`, `ml/`, `ta/` or `hi/` by hand — they are overwritten on every build.
+
+## Translations: Malayalam (ml), Tamil (ta), Hindi (hi)
+Every English article is also published in Malayalam, Tamil and Hindi at `/ml/blog/<slug>/`, `/ta/blog/<slug>/`, `/hi/blog/<slug>/`.
+- File: `_blog/posts/<lang>/<same file name as the English post>.html`, front matter:
+  ```
+  <!--
+  slug: <exactly the same slug as the English post>
+  title: <title in that language>
+  description: <140–160 character summary in that language>
+  -->
+  ```
+  Category, date and the `brokers`/`rebate` boxes come from the English post automatically (the boxes are translated by the template).
+- Translate the meaning naturally, the way traders in Kerala, Tamil Nadu and Hindi-speaking India actually talk and search —
+  not word-for-word. Everyday trading words that people say in English are written in the local script as they are said
+  (e.g. ട്രേഡിംഗ്, ലോട്ട്, സ്റ്റോപ്പ്-ലോസ് / டிரேடிங், லாட், ஸ்டாப்-லாஸ் / ट्रेडिंग, लॉट, स्टॉप-लॉस).
+  Keep symbols, product and feature names in English letters: XAUUSD, DXY, CPI, NFP, MT4/MT5, USDT, TRC20, CFD, IB,
+  XRover 5, XDemat, Beginner Safe Exit Mode, Fear Exit Mode, etc.
+- Times: IST first, GMT in brackets, e.g. "19:00 IST (13:30 GMT)".
+- Title and description: use the phrases people type in that language, e.g. "ഗോൾഡ് ട്രേഡിംഗ് മലയാളം",
+  "தங்கம் டிரேடிங் தமிழ்", "गोल्ड ट्रेडिंग हिन्दी में".
+- Keep exactly the same HTML structure as the English post. Leave links as `/blog/<slug>/` — the build points them to the
+  same-language version when it exists.
+- All writing rules above apply unchanged (no profit promises, no broker names in text, accurate facts, illustrative prices).
+- `python3 _blog/build.py` lists English posts that are not yet translated in each language.
 
 ## Categories
 Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical Analysis · Strategy · Trading Psychology · Market Update · Brokers & Accounts · XRover 5 · IB Rebates

@@ -4,21 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>XAUUSD Gold Trading Blog | XRover 5 by XDemat</title>
-<meta name="description" content="Free guides on trading XAUUSD (gold): sessions in IST, lot size and position sizing, what moves gold prices, candlestick reading and risk management.">
+<meta name="description" content="Free guides on trading XAUUSD (gold): trading sessions, lot size and position sizing, what moves gold prices, candlesticks, brokers, IB rebates and risk management.">
 <link rel="canonical" href="https://xrover5.com/blog/">
+<link rel="alternate" hreflang="en" href="https://xrover5.com/blog/">
+<link rel="alternate" hreflang="ml" href="https://xrover5.com/ml/blog/">
+<link rel="alternate" hreflang="ta" href="https://xrover5.com/ta/blog/">
+<link rel="alternate" hreflang="hi" href="https://xrover5.com/hi/blog/">
+<link rel="alternate" hreflang="x-default" href="https://xrover5.com/blog/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#0a0b12">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="XRover 5">
+<meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://xrover5.com/blog/">
 <meta property="og:title" content="XAUUSD Gold Trading Blog | XRover 5 by XDemat">
-<meta property="og:description" content="Free guides on trading XAUUSD (gold): sessions in IST, lot size and position sizing, what moves gold prices, candlestick reading and risk management.">
+<meta property="og:description" content="Free guides on trading XAUUSD (gold): trading sessions, lot size and position sizing, what moves gold prices, candlesticks, brokers, IB rebates and risk management.">
 <meta property="og:image" content="https://xrover5.com/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="XAUUSD Gold Trading Blog | XRover 5 by XDemat">
-<meta name="twitter:description" content="Free guides on trading XAUUSD (gold): sessions in IST, lot size and position sizing, what moves gold prices, candlestick reading and risk management.">
+<meta name="twitter:description" content="Free guides on trading XAUUSD (gold): trading sessions, lot size and position sizing, what moves gold prices, candlesticks, brokers, IB rebates and risk management.">
 <meta name="twitter:image" content="https://xrover5.com/assets/og-image.jpg">
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -26,8 +32,9 @@
 {
  "@context": "https://schema.org",
  "@type": "Blog",
- "name": "XRover 5 Blog",
+ "name": "XAUUSD Gold Trading Blog | XRover 5 by XDemat",
  "url": "https://xrover5.com/blog/",
+ "inLanguage": "en",
  "publisher": {
   "@type": "Organization",
   "name": "XDemat",
@@ -436,7 +443,7 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
 </style>
 <style>
 /* BLOG */
-.blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; }
 .post-card { text-decoration: none; transition: border-color .2s, transform .2s; }
 .post-card:hover { border-color: color-mix(in oklab, var(--ember) 55%, var(--line)); transform: translateY(-2px); }
 .post-card .tag, .post-meta .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ember); }
@@ -445,6 +452,10 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
 .post-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; color: var(--muted); font-size: 14px; }
 .crumbs { font-size: 14px; color: var(--muted); }
 .crumbs a { color: var(--muted); text-decoration: none; } .crumbs a:hover { color: var(--fg); }
+.langs { display: flex; flex-wrap: wrap; gap: 8px; }
+.langs a { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 600; }
+.langs a:hover { color: var(--fg); }
+.langs a[aria-current] { color: var(--fg); background: var(--surface-2); border-color: color-mix(in oklab, var(--cyan) 50%, var(--line)); }
 .article { max-width: 760px; font-size: 1.05rem; line-height: 1.75; }
 .article > * + * { margin-top: 1.1em; }
 .article h2 { font-size: clamp(1.35rem, 2.6vw, 1.7rem); font-weight: 600; margin-top: 2em; }
@@ -469,6 +480,7 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
 .related { margin-top: 64px; }
 .related h2 { font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; }
 </style>
+
 </head>
 <body>
 <header class="nav">
@@ -492,41 +504,42 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
   <div class="wrap page-head">
     <span class="eyebrow">Blog</span>
     <h1>XAUUSD trading insights</h1>
-    <p class="lead">Practical, no-hype guides to trading gold: when to trade it from India, how to size positions, what moves the price, how to read candles and how to protect your capital.</p>
+    <p class="lead">Practical, no-hype guides to trading gold: when to trade it, how to size positions, what moves the price, how to read candles and how to protect your capital.</p>
+    <nav class="langs" aria-label="Language"><a href="/blog/" hreflang="en" lang="en" aria-current="true">English</a><a href="/ml/blog/" hreflang="ml" lang="ml">മലയാളം</a><a href="/ta/blog/" hreflang="ta" lang="ta">தமிழ்</a><a href="/hi/blog/" hreflang="hi" lang="hi">हिन्दी</a></nav>
   </div>
   <section class="band" style="padding-top:36px">
     <div class="wrap">
       <div class="blog-grid">
       <a class="card post-card" href="/blog/xauusd-risk-management-rules/">
-        <span class="tag">Risk & Money</span>
+        <span class="tag">Risk &amp; Money</span>
         <h2>XAUUSD Risk Management: 9 Rules to Protect Your Capital When Trading Gold</h2>
         <p>Gold&#x27;s volatility can grow or destroy an account fast. Nine practical risk rules for XAUUSD traders: risk per trade, stops, news, spreads, daily limits and more.</p>
-        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min →</span>
+        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min read →</span>
       </a><a class="card post-card" href="/blog/xauusd-lot-size-pip-value-position-sizing/">
-        <span class="tag">Risk & Money</span>
+        <span class="tag">Risk &amp; Money</span>
         <h2>XAUUSD Lot Size, Pip Value and Position Sizing Explained</h2>
         <p>How much is one pip on gold? Learn XAUUSD lot sizes, pip and point values, margin, and a simple formula to size every gold trade by risk.</p>
-        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min →</span>
+        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min read →</span>
       </a><a class="card post-card" href="/blog/what-moves-gold-prices-xauusd-drivers/">
         <span class="tag">Fundamentals</span>
         <h2>What Moves Gold Prices? 7 Key Drivers Every XAUUSD Trader Should Know</h2>
         <p>The US dollar, real interest rates, the Fed, inflation data, jobs reports, geopolitics and central bank buying: how each one tends to affect XAUUSD.</p>
-        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min →</span>
+        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min read →</span>
       </a><a class="card post-card" href="/blog/what-is-xauusd-gold-trading-guide/">
         <span class="tag">Beginner Guide</span>
         <h2>What Is XAUUSD? A Beginner&#x27;s Guide to Trading Gold</h2>
         <p>XAUUSD explained in plain words: what the gold symbol means, how its price is quoted, why traders love it, and what to know before your first gold trade.</p>
-        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min →</span>
+        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min read →</span>
       </a><a class="card post-card" href="/blog/candlestick-patterns-for-xauusd-trading/">
         <span class="tag">Technical Analysis</span>
         <h2>How to Read Candlesticks on XAUUSD: Patterns That Actually Matter</h2>
         <p>A practical guide to reading gold candlesticks: bodies and wicks, rejection candles, engulfing and inside bars, and why confirmation matters.</p>
-        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min →</span>
+        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min read →</span>
       </a><a class="card post-card" href="/blog/best-time-to-trade-xauusd-in-india-ist/">
         <span class="tag">Trading Sessions</span>
         <h2>Best Time to Trade XAUUSD in India (IST Session Guide)</h2>
         <p>When is gold most active in Indian Standard Time? A practical guide to the Asian, London and New York sessions, the overlap, and the hours to avoid.</p>
-        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min →</span>
+        <span class="more"><time datetime="2026-10-22">22 October 2026</time> · Read article · 3 min read →</span>
       </a>
       </div>
     </div>
