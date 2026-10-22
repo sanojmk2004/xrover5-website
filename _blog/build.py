@@ -19,7 +19,8 @@ def load():
         if not re.fullmatch(r"[a-z0-9-]+", meta["slug"]): sys.exit(f"{f}: bad slug")
         d = datetime.date.fromisoformat(meta["date"])
         posts.append({"slug": meta["slug"], "cat": meta["category"], "title": meta["title"], "desc": meta["description"],
-                      "date": d.isoformat(), "date_h": d.strftime("%-d %B %Y"), "body": m.group(2)})
+                      "date": d.isoformat(), "date_h": d.strftime("%-d %B %Y"), "body": m.group(2),
+                      "brokers": meta.get("brokers", "").lower() in ("yes", "true", "1")})
     slugs = [p["slug"] for p in posts]
     dup = {s for s in slugs if slugs.count(s) > 1}
     if dup: sys.exit(f"duplicate slugs: {dup}")
@@ -76,6 +77,30 @@ BLOG_CSS = """<style>
 .related { margin-top: 64px; }
 .related h2 { font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; }
 </style>"""
+
+# Recommended-broker box. Shown on posts whose front matter has "brokers: yes".
+# Edit links here only — they are XDemat's partner (IB) links, same as on /products/.
+BROKERS_BOX = """<aside class="brokers" aria-labelledby="rb-title" style="margin-top:40px;max-width:760px">
+        <div class="brokers-head">
+          <span class="eyebrow">Our recommended brokers</span>
+          <h3 id="rb-title">Open your trading account</h3>
+          <p>These are the brokers we recommend to XRover 5 members. Open your account through these links to qualify for special XRover 5 pricing.</p>
+        </div>
+        <div class="broker-grid">
+          <a class="broker" href="https://clickto.trade/bWvhiqPpr8h?ib=7377800" target="_blank" rel="noopener sponsored">
+            <span class="blogo" style="background:#c4c0ad"><img src="/assets/broker-octa.png" alt="Octa" width="177" height="64" loading="lazy"></span>
+            <span class="bname">Octa</span>
+            <span class="bcta">Open account ↗</span>
+          </a>
+          <a class="broker" href="https://cabinet.switchmarkets.com/links/go/14777" target="_blank" rel="noopener sponsored">
+            <span class="blogo" style="background:#000c2e"><img src="/assets/broker-switch.png" alt="Switch Markets" width="260" height="82" loading="lazy"></span>
+            <span class="bname">Switch Markets</span>
+            <span class="bcta">Open account ↗</span>
+          </a>
+        </div>
+        <div class="btn-row"><a class="btn btn-ghost" href="/products/#brokers">How the special offer works</a><a class="btn btn-ghost" href="/contact/">Already opened? Contact us</a></div>
+        <p class="broker-risk"><b>Disclosure:</b> these are partner links. XDemat may receive a commission from the broker when you open an account through them, at no extra cost to you. Broker accounts are provided by the brokers, not by XDemat. Check that trading with any broker is permitted under the rules that apply to you (for Indian residents, RBI/FEMA rules) and read the broker's terms before opening an account. Trading forex and CFDs carries a high risk of losing money.</p>
+      </aside>"""
 
 MENU_JS = """<script>
 (function(){var b=document.getElementById('menuBtn'),l=document.getElementById('links');
@@ -163,6 +188,7 @@ for i, p in enumerate(POSTS):
       <article class="article">
 {p['body'].strip()}
       </article>
+      {BROKERS_BOX if p["brokers"] else ""}
       <div class="post-cta">
         <span class="eyebrow">XRover 5 · Intelligent Candle Trading System</span>
         <h2>See how XRover 5 trades XAUUSD in real market conditions</h2>

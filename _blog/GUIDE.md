@@ -12,6 +12,7 @@ The blog at https://xrover5.com/blog/ is generated from the files in `_blog/post
    title: Article title
    description: 140–160 character summary for Google and the blog card
    date: YYYY-MM-DD
+   brokers: yes        (optional — adds the Recommended brokers box with XDemat's partner links)
    -->
    <p>Intro…</p>
    <h2>…</h2>
@@ -32,7 +33,7 @@ Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical 
 - Audience: retail traders in India (many trade in the evening IST), beginner to intermediate. Topic focus: XAUUSD (gold).
 - 900–1,400 words, clear English, short paragraphs, practical and specific. Use IST when giving times.
 - Educational only. Never promise or imply profits, win rates or "guaranteed" results. No "get rich" language.
-- No broker names or broker links in articles.
+- No broker names or broker links in the article text. Broker links appear only through the `brokers: yes` box (see below).
 - No specific current gold price or recent news unless you have looked it up that day and say when it applies.
   Example prices must be clearly illustrative ("for example, at 4,000.00").
 - Facts (session times, contract sizes, release times, how drivers work) must be correct. If unsure, leave it out.
@@ -49,7 +50,12 @@ Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical 
 - Readers are mostly Indian residents. Explain that Indian residents must follow RBI/FEMA rules on forex trading,
   that RBI publishes an "Alert List" of unauthorised forex platforms, and that readers should check current rules
   and the list themselves before opening an account. Do not give legal advice or say any broker is "approved" or "legal in India".
-- Still no broker names or links in the article. Do not mention partner or referral offers.
+- Set `brokers: yes` in the front matter so the template adds the Recommended brokers box (Octa and Switch Markets,
+  partner links, with disclosure). Never type broker links yourself — the box is the only source of the correct links.
+- The article text stays neutral and educational. It may end with one sentence pointing readers to
+  "our recommended brokers below" and the XRover 5 special pricing. Don't make claims about the brokers
+  (regulation, spreads, bonuses, safety) beyond that, and don't rank or review them.
+- Use `brokers: yes` only on broker and account-opening articles.
 
 ### XRover 5 articles (category "XRover 5")
 - These can be about XRover 5 throughout, but every claim must match the real features listed above
