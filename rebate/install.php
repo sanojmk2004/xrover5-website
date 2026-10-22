@@ -6,7 +6,9 @@ require __DIR__ . '/inc/schema.php';
 
 foreach (schema_sql(db_driver()) as $sql) db()->exec($sql);
 
+$lockFile = dirname($cfgFile) . '/rebate-installed.lock'; // also switches off check.php
 if (val("SELECT COUNT(*) FROM users WHERE role = 'admin'") > 0) {
+  @touch($lockFile);
   page_start('Setup');
   echo '<div class="card form-narrow"><h1>Already set up</h1><p class="muted">Tables are up to date. An admin account exists, so setup is locked.</p><a class="btn btn-primary" href="' . e(url('login.php')) . '">Go to login</a></div>';
   page_end();
@@ -32,6 +34,7 @@ if (is_post()) {
     foreach (['min_withdrawal' => '10', 'metaapi_region' => 'new-york', 'payout_days' => 'every Monday'] as $k => $v) {
       if (setting($k) === null) set_setting($k, $v);
     }
+    @touch($lockFile);
     flash('Setup complete. Log in with your new admin account, then set rebate % and estimated commission per lot under Admin → Brokers.');
     redirect('login.php');
   }
