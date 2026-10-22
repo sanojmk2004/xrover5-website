@@ -86,7 +86,7 @@ BROKERS_BOX = """<aside class="brokers" aria-labelledby="rb-title" style="margin
           <h3 id="rb-title">Open your trading account</h3>
           <p>These are the brokers we recommend to XRover 5 members. Open your account through these links to qualify for special XRover 5 pricing.</p>
         </div>
-        <div class="broker-grid">
+        <div class="broker-grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
           <a class="broker" href="https://clickto.trade/bWvhiqPpr8h?ib=7377800" target="_blank" rel="noopener sponsored">
             <span class="blogo" style="background:#c4c0ad"><img src="/assets/broker-octa.png" alt="Octa" width="177" height="64" loading="lazy"></span>
             <span class="bname">Octa</span>
