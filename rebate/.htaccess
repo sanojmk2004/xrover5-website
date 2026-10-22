@@ -1,0 +1,7 @@
+# Rebate portal: block direct access to code folders and stray files
+Options -Indexes
+RewriteEngine On
+RewriteRule ^(inc|cron)(/|$) - [F,L]
+<FilesMatch "\.(sql|md|sqlite|log|lock)$">
+  Require all denied
+</FilesMatch>
