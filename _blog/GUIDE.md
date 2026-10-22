@@ -26,7 +26,7 @@ The blog at https://xrover5.com/blog/ is generated from the files in `_blog/post
 Do not edit files in `blog/` by hand — they are overwritten on every build.
 
 ## Categories
-Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical Analysis · Strategy · Trading Psychology · Market Update
+Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical Analysis · Strategy · Trading Psychology · Market Update · Brokers & Accounts · XRover 5
 
 ## Writing rules
 - Audience: retail traders in India (many trade in the evening IST), beginner to intermediate. Topic focus: XAUUSD (gold).
@@ -44,9 +44,32 @@ Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical 
   The page template already adds a "Book a Demo" box and a risk note — don't repeat them.
 - Original writing only — never copy text from other websites.
 
+### Broker and account-opening articles
+- Stay general and educational: regulation, safety of funds, costs, platforms, execution, deposits/withdrawals, support.
+- Readers are mostly Indian residents. Explain that Indian residents must follow RBI/FEMA rules on forex trading,
+  that RBI publishes an "Alert List" of unauthorised forex platforms, and that readers should check current rules
+  and the list themselves before opening an account. Do not give legal advice or say any broker is "approved" or "legal in India".
+- Still no broker names or links in the article. Do not mention partner or referral offers.
+
+### XRover 5 articles (category "XRover 5")
+- These can be about XRover 5 throughout, but every claim must match the real features listed above
+  and the products page (https://xrover5.com/products/). No invented features, statistics, win rates or testimonials.
+- "Intelligent Candle Trading System" is XDemat's name for the product — use it freely. Do not state as fact
+  that XRover 5 is the "world's only" or "world's best" system or that it outperforms other tools; explain what is
+  distinctive about its approach instead, and let readers judge.
+- Comparisons with other methods (plain candlestick patterns, standard indicators, order flow, volume profile, etc.)
+  must be fair: describe what each method does well and its limits, then where XRover 5's approach differs.
+  Never disparage named competitor products.
+- End with the normal Book a Demo box (added by the template). Keep the risk-aware, no-guarantee tone.
+
 ## Topic backlog
 Pick the first unused topic, or a new XAUUSD topic not already covered by a file in `posts/`.
 Delete a line from this list when you publish it.
+- How to choose a forex broker for trading gold: a safety checklist (category: Brokers & Accounts)
+- How to open a forex trading account step by step: KYC, documents, demo, first deposit (category: Brokers & Accounts)
+- What makes XRover 5 the Intelligent Candle Trading System — and how it differs from ordinary candle tools (category: XRover 5)
+- Why professional traders use XRover 5: confirmation, structure and control (category: XRover 5)
+- XRover 5 vs traditional candlestick systems, indicators and order flow: an honest comparison (category: XRover 5)
 - XAUUSD scalping vs intraday vs swing trading: which style suits you
 - How to trade gold around Non-Farm Payrolls (and when not to)
 - Support and resistance on XAUUSD: drawing zones that matter
