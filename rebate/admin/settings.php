@@ -67,6 +67,12 @@ $brokerList = rows('SELECT id, name FROM brokers ORDER BY sort_order, name');
         <a class="btn btn-ghost btn-sm" href="<?= e(url('vps/start-sync.bat')) ?>" download>Download start-sync.bat</a>
       </div>
     </div>
+    <div class="small muted" style="margin:-6px 0 18px">
+      <b>Email alerts when the VPS stops:</b> in cPanel → Cron Jobs add (every 15 minutes):<br>
+      <code class="mono" style="word-break:break-all">*/15 * * * * /usr/local/bin/php <?= e(dirname(__DIR__)) ?>/cron/watchdog.php &gt;/dev/null 2&gt;&amp;1</code><br>
+      Alerts go to <?= e($GLOBALS['CFG']['admin_email'] ?? '(admin_email in rebate-config.php)') ?>.
+      <?= setting('watchdog_last_run') ? 'Last check: ' . e(date('d M, H:i', strtotime(setting('watchdog_last_run')))) . '.' : '<b>Not set up yet.</b>' ?>
+    </div>
     <h3>MetaApi</h3>
     <p class="small muted">Create an account at metaapi.cloud, copy your API token, and paste it here. Each connected trading account uses a MetaApi cloud terminal, billed by MetaApi.</p>
     <div class="field"><label>API token <?= $hasTok ? '<span class="badge badge-ok">Saved</span>' : '<span class="badge badge-warn">Not set</span>' ?></label>

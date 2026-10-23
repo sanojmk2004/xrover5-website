@@ -15,7 +15,9 @@ connect MT4/MT5 with the investor password, and get a % of the IB commission bac
 4. Open https://xrover5.com/rebate/install.php and create the admin login (locks itself afterwards).
 5. Admin > Brokers: set customer rebate % and estimated commission per lot for Octa and Switch Markets.
 6. Optional live lot tracking (Admin > Settings): either own Windows VPS with MT5 (free, MT5 only — see `rebate/vps/README.txt`),
-   or MetaApi (paid) with a cPanel cron job every 30 min:
+   plus the watchdog cron job every 15 min for email alerts when the VPS stops:
+   `*/15 * * * * /usr/local/bin/php /home/<cpanel-user>/public_html/rebate/cron/watchdog.php >/dev/null 2>&1`
+   — or MetaApi (paid) with a cPanel cron job every 30 min:
    `/usr/local/bin/php /home/<cpanel-user>/public_html/rebate/cron/sync.php >/dev/null 2>&1`
 
 **Routine:** verify new accounts (Admin > Accounts) against the broker partner portal; import each broker's IB

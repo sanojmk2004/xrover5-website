@@ -1,5 +1,6 @@
 <?php
 require dirname(__DIR__) . '/inc/bootstrap.php';
+require dirname(__DIR__) . '/inc/vps_status.php';
 require_admin();
 $m0 = date('Y-m-01');
 $s = [
@@ -24,7 +25,19 @@ $brokers = rows("SELECT b.name, b.clicks, b.rebate_pct,
 page_start('Admin overview', 'admin/index.php', true);
 ?>
 <h1>Rebate admin</h1>
-<?php if (!setting('metaapi_token_enc')): ?><div class="alert alert-info">MetaApi isn't connected yet, so lots are not read from MT4/MT5. Add your token in <a href="settings.php">Settings</a>. Commission imports work without it.</div><?php endif; ?>
+<?php $vs = vps_status(); if ($vs['state'] !== 'off'):
+  $wd = setting('watchdog_last_run'); $wdOk = $wd && time() - strtotime($wd) < 3600;
+  $cls = $vs['state'] === 'ok' ? 'ok' : ($vs['state'] === 'down' ? 'err' : 'info');
+  $failed = (int) val("SELECT COUNT(*) FROM accounts WHERE status = 'verified' AND platform = 'MT5' AND sync_error <> ''"); ?>
+  <div class="alert alert-<?= $cls ?>">
+    <b>VPS lot sync: <?= $vs['state'] === 'ok' ? '✔' : '✘' ?> <?= e($vs['label']) ?></b>
+    <?php if (setting('vps_started_at')): ?><span class="small muted"> · started <?= e(date('d M, H:i', strtotime(setting('vps_started_at')))) ?><?= setting('vps_host') ? ' on ' . e(setting('vps_host')) : '' ?></span><?php endif; ?>
+    <?php if ($vs['state'] === 'down'): ?><div class="small">Log in to the VPS and double-click C:\xr5sync\start-sync.bat.</div><?php endif; ?>
+    <?php if ($failed): ?><div class="small"><a href="accounts.php?status=verified"><?= $failed ?> account(s) failing to log in</a> (wrong investor password or server).</div><?php endif; ?>
+    <div class="small muted"><?= $wdOk ? 'Email alerts are on.' : 'Email alerts are off — add the watchdog cron job in cPanel (see Settings).' ?></div>
+  </div>
+<?php endif; ?>
+<?php if (setting('lot_source', 'none') === 'metaapi' && !setting('metaapi_token_enc')): ?><div class="alert alert-info">MetaApi isn't connected yet, so lots are not read from MT4/MT5. Add your token in <a href="settings.php">Settings</a>. Commission imports work without it.</div><?php endif; ?>
 <div class="grid g4">
   <a class="stat" href="accounts.php?status=pending" style="text-decoration:none;color:inherit"><div class="k">Accounts to verify</div><div class="v"><?= $s['acc_pend'] ?></div><div class="s"><?= $s['acc_ok'] ?> verified</div></a>
   <a class="stat hl" href="withdrawals.php" style="text-decoration:none;color:inherit"><div class="k">Payouts to send</div><div class="v"><?= usd($s['wd_pend']) ?></div><div class="s"><?= $s['wd_pendn'] ?> request(s)</div></a>

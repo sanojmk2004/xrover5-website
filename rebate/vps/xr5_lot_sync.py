@@ -152,6 +152,11 @@ def run_once(cfg):
 def main():
     cfg = load_config()
     loop = "--loop" in sys.argv
+    try:   # tell the website the sync has (re)started - admin gets an email
+        import socket
+        api(cfg, "hello", body={"host": socket.gethostname(), "interval_minutes": int(cfg.get("interval_minutes", 30))})
+    except Exception as e:
+        log(f"could not reach website: {e}")
     while True:
         log("sync started")
         try:

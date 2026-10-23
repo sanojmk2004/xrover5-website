@@ -17,6 +17,20 @@ set_setting('vps_last_seen', now());
 
 $action = $_GET['action'] ?? '';
 
+if ($action === 'hello' && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
+  // Sent once when the VPS script starts (after a VPS restart or a manual start).
+  $in = json_decode((string) file_get_contents('php://input'), true) ?: [];
+  $host = mb_substr(preg_replace('/[^\w .-]/', '', (string)($in['host'] ?? '')), 0, 60);
+  $interval = max(5, min(240, (int)($in['interval_minutes'] ?? 30)));
+  set_setting('vps_started_at', now());
+  set_setting('vps_host', $host);
+  set_setting('vps_interval', (string)$interval);
+  notify_admin('XRover 5 rebates: VPS lot sync started',
+    "The lot sync on the VPS ($host) started at " . date('d M Y, H:i') . ".\n\n" .
+    "If you did not start it yourself, the VPS probably restarted and the sync came back on its own.\n");
+  out(200, ['ok' => true]);
+}
+
 if ($action === 'jobs') {
   $bid = (int)($_GET['broker_id'] ?? 0);
   $list = [];
