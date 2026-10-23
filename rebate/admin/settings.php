@@ -68,8 +68,8 @@ $brokerList = rows('SELECT id, name FROM brokers ORDER BY sort_order, name');
       </div>
     </div>
     <div class="small muted" style="margin:-6px 0 18px">
-      <b>Email alerts when the VPS stops:</b> in cPanel → Cron Jobs add (every 15 minutes):<br>
-      <code class="mono" style="word-break:break-all">*/15 * * * * /usr/local/bin/php <?= e(dirname(__DIR__)) ?>/cron/watchdog.php &gt;/dev/null 2&gt;&amp;1</code><br>
+      <b>Email alerts when the VPS stops:</b> cPanel → Cron Jobs → Common Settings <b>"Twice Per Hour"</b>, then paste this in the <b>Command</b> box:<br>
+      <code class="mono" style="word-break:break-all">/usr/local/bin/php <?= e(dirname(__DIR__)) ?>/cron/watchdog.php &gt;/dev/null 2&gt;&amp;1</code><br>
       Alerts go to <?= e($GLOBALS['CFG']['admin_email'] ?? '(admin_email in rebate-config.php)') ?>.
       <?= setting('watchdog_last_run') ? 'Last check: ' . e(date('d M, H:i', strtotime(setting('watchdog_last_run')))) . '.' : '<b>Not set up yet.</b>' ?>
     </div>
