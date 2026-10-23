@@ -117,7 +117,6 @@ Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical 
 ## Topic backlog
 Pick the first unused topic, or a new XAUUSD topic not already covered by a file in `posts/`.
 Delete a line from this list when you publish it.
-- How to choose a forex broker for trading gold: a safety checklist (category: Brokers & Accounts)
 - How to open a forex trading account step by step: KYC, documents, demo, first deposit (category: Brokers & Accounts)
 - What is a forex rebate (IB cashback) and how does it work? (category: IB Rebates)
 - What makes XRover 5 the Intelligent Candle Trading System — and how it differs from ordinary candle tools (category: XRover 5)
