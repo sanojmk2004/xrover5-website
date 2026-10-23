@@ -11,6 +11,7 @@
 <link rel="alternate" hreflang="ta" href="https://xrover5.com/ta/blog/candlestick-patterns-for-xauusd-trading/">
 <link rel="alternate" hreflang="hi" href="https://xrover5.com/hi/blog/candlestick-patterns-for-xauusd-trading/">
 <link rel="alternate" hreflang="x-default" href="https://xrover5.com/blog/candlestick-patterns-for-xauusd-trading/">
+<link rel="alternate" type="application/rss+xml" title="XRover 5 வலைப்பதிவு — தங்கம் டிரேடிங் தமிழில்" href="https://xrover5.com/ta/blog/feed.xml">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#0a0b12">
 <meta property="og:type" content="article">
@@ -74,6 +75,36 @@
      "position": 3,
      "name": "கேண்டில்ஸ்டிக் பேட்டர்ன்கள் தமிழில்: XAUUSD தங்கம் டிரேடிங்கில் உண்மையில் முக்கியமானவை",
      "item": "https://xrover5.com/ta/blog/candlestick-patterns-for-xauusd-trading/"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "inLanguage": "ta",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "XAUUSD-ல் எந்த கேண்டில்ஸ்டிக் பேட்டர்ன்கள் அதிகம் பயன்படும்?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "ரிஜெக்ஷன் கேண்டில்கள் (பின் பார்கள்), எங்கல்ஃபிங் கேண்டில்கள், இன்சைட் பார்கள், மொமென்டம் கேண்டில்கள், டோஜி கேண்டில்கள் ஆகியவை கற்றுக்கொள்ள மிகவும் பயனுள்ளவை. சப்போர்ட், ரெசிஸ்டன்ஸ், செஷன் ஹை அல்லது லோ, ரவுண்ட் நம்பர் போன்ற முக்கிய லெவலில் உருவாகும்போதுதான் அவை அதிக முக்கியத்துவம் பெறுகின்றன."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "கேண்டில் குளோஸ் ஆவதற்கு முன் என்ட்ரி எடுக்கலாமா?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "குளோஸ் ஆகும் வரை காத்திருப்பதே பாதுகாப்பானது. கடைசி சில விநாடிகளில் ஒரு கேண்டில் முழுவதுமாக மாறிவிடலாம், எனவே கேண்டில் குளோஸ் ஆன பிறகுதான் ஒரு பேட்டர்ன் உறுதியாகிறது."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "டோஜி வாங்குவதற்கான சிக்னலா, விற்பதற்கான சிக்னலா?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "இல்லை. டோஜி தீர்மானமின்மையைக் காட்டுகிறது. நீண்ட நகர்வுக்குப் பிறகு ஒரு முக்கிய லெவலில் வந்தால், அந்த நகர்வு வலுவிழந்து வருகிறது என்று எச்சரிக்கலாம்; ஆனால் அது மட்டுமே டிரேட் செய்வதற்கான சிக்னல் அல்ல."
+     }
     }
    ]
   }
@@ -477,6 +508,14 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
 .post-cta p { color: var(--muted); }
 .post-risk { max-width: 760px; margin-top: 28px; font-size: 13px; color: var(--muted); }
 .related { margin-top: 64px; }
+.share { max-width: 760px; margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.share .lbl { font-weight: 700; color: var(--fg); margin-right: 4px; }
+.share a, .share button { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--fg); font: 600 14px var(--body); text-decoration: none; cursor: pointer; }
+.share a:hover, .share button:hover { border-color: color-mix(in oklab, var(--cyan) 50%, var(--line)); }
+.share svg { width: 16px; height: 16px; fill: currentColor; flex: none; }
+.article .faq { display: grid; gap: 10px; }
+.article .faq h3 { margin-top: .9em; color: var(--fg); }
+.article .faq h3 + p { margin-top: .35em; }
 .related h2 { font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; }
 </style>
 <style>
@@ -559,7 +598,17 @@ h1, h2, h3 { line-height: 1.35; letter-spacing: 0; }
 
 <h2>கேண்டில்களைப் படிப்பதிலிருந்து முழுமையான சிஸ்டம் வரை</h2>
 <p>வெவ்வேறு செஷன்கள், டைம்ஃப்ரேம்களில் கேண்டில்களைக் கைமுறையாகப் படிப்பது கடினமான வேலை, குறிப்பாக தங்கம் போன்ற வேகமான மார்க்கெட்டில். இந்தப் பிரச்சினையைத் தீர்க்கத்தான் Intelligent Candle Trading System ஆன XRover 5 உருவாக்கப்பட்டது. அதன் Data Confirmed Entry System, மார்க்கெட் செயல்பாடு முன்பே வரையறுக்கப்பட்ட கன்ஃபர்மேஷன் அளவுகோல்களைப் பூர்த்தி செய்த பிறகே ஒரு வாய்ப்பைக் காட்டுகிறது; Adaptive Zone Technology மார்க்கெட் மாறும்போது சப்போர்ட், ரெசிஸ்டன்ஸ் பகுதிகளைப் புதுப்பித்துக்கொண்டே இருக்கிறது; ஒவ்வொரு செட்டப்புடனும் இன்டெலிஜென்ட் ஸ்டாப்-லாஸ் சோனும் டைனமிக் ப்ராஃபிட் டார்கெட்களும் வருகின்றன.</p>
+<h2>அடிக்கடி கேட்கப்படும் கேள்விகள்</h2>
+<div class="faq">
+<h3>XAUUSD-ல் எந்த கேண்டில்ஸ்டிக் பேட்டர்ன்கள் அதிகம் பயன்படும்?</h3>
+<p>ரிஜெக்ஷன் கேண்டில்கள் (பின் பார்கள்), எங்கல்ஃபிங் கேண்டில்கள், இன்சைட் பார்கள், மொமென்டம் கேண்டில்கள், டோஜி கேண்டில்கள் ஆகியவை கற்றுக்கொள்ள மிகவும் பயனுள்ளவை. சப்போர்ட், ரெசிஸ்டன்ஸ், செஷன் ஹை அல்லது லோ, ரவுண்ட் நம்பர் போன்ற முக்கிய லெவலில் உருவாகும்போதுதான் அவை அதிக முக்கியத்துவம் பெறுகின்றன.</p>
+<h3>கேண்டில் குளோஸ் ஆவதற்கு முன் என்ட்ரி எடுக்கலாமா?</h3>
+<p>குளோஸ் ஆகும் வரை காத்திருப்பதே பாதுகாப்பானது. கடைசி சில விநாடிகளில் ஒரு கேண்டில் முழுவதுமாக மாறிவிடலாம், எனவே கேண்டில் குளோஸ் ஆன பிறகுதான் ஒரு பேட்டர்ன் உறுதியாகிறது.</p>
+<h3>டோஜி வாங்குவதற்கான சிக்னலா, விற்பதற்கான சிக்னலா?</h3>
+<p>இல்லை. டோஜி தீர்மானமின்மையைக் காட்டுகிறது. நீண்ட நகர்வுக்குப் பிறகு ஒரு முக்கிய லெவலில் வந்தால், அந்த நகர்வு வலுவிழந்து வருகிறது என்று எச்சரிக்கலாம்; ஆனால் அது மட்டுமே டிரேட் செய்வதற்கான சிக்னல் அல்ல.</p>
+</div>
       </article>
+      <div class="share" data-url="https://xrover5.com/ta/blog/candlestick-patterns-for-xauusd-trading/" data-title="கேண்டில்ஸ்டிக் பேட்டர்ன்கள் தமிழில்: XAUUSD தங்கம் டிரேடிங்கில் உண்மையில் முக்கியமானவை" data-copied="லிங்க் காப்பி ஆனது"><span class="lbl">இந்தக் கட்டுரையைப் பகிருங்கள்</span><button type="button" class="share-native" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7c0 .3 0 .5.1.8L8.4 11.2a3 3 0 1 0 0 3.6l6.7 3.4A3 3 0 1 0 18 16z"/></svg>இந்தக் கட்டுரையைப் பகிருங்கள்</button><a href="https://wa.me/?text=%E0%AE%95%E0%AF%87%E0%AE%A3%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%B2%E0%AF%8D%E0%AE%B8%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%95%E0%AF%8D%20%E0%AE%AA%E0%AF%87%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%B0%E0%AF%8D%E0%AE%A9%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AF%8D%20%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AE%BF%E0%AE%B2%E0%AF%8D%3A%20XAUUSD%20%E0%AE%A4%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%AE%E0%AF%8D%20%E0%AE%9F%E0%AE%BF%E0%AE%B0%E0%AF%87%E0%AE%9F%E0%AE%BF%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AF%8D%20%E0%AE%89%E0%AE%A3%E0%AF%8D%E0%AE%AE%E0%AF%88%E0%AE%AF%E0%AE%BF%E0%AE%B2%E0%AF%8D%20%E0%AE%AE%E0%AF%81%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%AF%E0%AE%AE%E0%AE%BE%E0%AE%A9%E0%AE%B5%E0%AF%88%20https%3A%2F%2Fxrover5.com%2Fta%2Fblog%2Fcandlestick-patterns-for-xauusd-trading%2F" target="_blank" rel="noopener nofollow">WhatsApp</a><a href="https://t.me/share/url?url=https%3A%2F%2Fxrover5.com%2Fta%2Fblog%2Fcandlestick-patterns-for-xauusd-trading%2F&amp;text=%E0%AE%95%E0%AF%87%E0%AE%A3%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%B2%E0%AF%8D%E0%AE%B8%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%95%E0%AF%8D%20%E0%AE%AA%E0%AF%87%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%B0%E0%AF%8D%E0%AE%A9%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AF%8D%20%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AE%BF%E0%AE%B2%E0%AF%8D%3A%20XAUUSD%20%E0%AE%A4%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%AE%E0%AF%8D%20%E0%AE%9F%E0%AE%BF%E0%AE%B0%E0%AF%87%E0%AE%9F%E0%AE%BF%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AF%8D%20%E0%AE%89%E0%AE%A3%E0%AF%8D%E0%AE%AE%E0%AF%88%E0%AE%AF%E0%AE%BF%E0%AE%B2%E0%AF%8D%20%E0%AE%AE%E0%AF%81%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%AF%E0%AE%AE%E0%AE%BE%E0%AE%A9%E0%AE%B5%E0%AF%88" target="_blank" rel="noopener nofollow">Telegram</a><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fxrover5.com%2Fta%2Fblog%2Fcandlestick-patterns-for-xauusd-trading%2F&amp;text=%E0%AE%95%E0%AF%87%E0%AE%A3%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%B2%E0%AF%8D%E0%AE%B8%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%95%E0%AF%8D%20%E0%AE%AA%E0%AF%87%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%B0%E0%AF%8D%E0%AE%A9%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AF%8D%20%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AE%BF%E0%AE%B2%E0%AF%8D%3A%20XAUUSD%20%E0%AE%A4%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%AE%E0%AF%8D%20%E0%AE%9F%E0%AE%BF%E0%AE%B0%E0%AF%87%E0%AE%9F%E0%AE%BF%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AF%8D%20%E0%AE%89%E0%AE%A3%E0%AF%8D%E0%AE%AE%E0%AF%88%E0%AE%AF%E0%AE%BF%E0%AE%B2%E0%AF%8D%20%E0%AE%AE%E0%AF%81%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%AF%E0%AE%AE%E0%AE%BE%E0%AE%A9%E0%AE%B5%E0%AF%88" target="_blank" rel="noopener nofollow">X</a><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fxrover5.com%2Fta%2Fblog%2Fcandlestick-patterns-for-xauusd-trading%2F" target="_blank" rel="noopener nofollow">Facebook</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fxrover5.com%2Fta%2Fblog%2Fcandlestick-patterns-for-xauusd-trading%2F" target="_blank" rel="noopener nofollow">LinkedIn</a><button type="button" class="share-copy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 1 0-1.4l3.5-3.5a1 1 0 1 1 1.4 1.4L12 13.4a1 1 0 0 1-1.4 0zM7.8 19.1a3.9 3.9 0 0 1-2.8-6.6l2.1-2.1a1 1 0 1 1 1.4 1.4l-2.1 2.1a1.9 1.9 0 0 0 2.7 2.7l2.1-2.1a1 1 0 1 1 1.4 1.4l-2.1 2.1a3.9 3.9 0 0 1-2.7 1.1zm8.5-5.1a1 1 0 0 1-.7-1.7l2.1-2.1a1.9 1.9 0 0 0-2.7-2.7L12.9 9.6a1 1 0 1 1-1.4-1.4l2.1-2.1a3.9 3.9 0 0 1 5.5 5.5L17 13.7a1 1 0 0 1-.7.3z"/></svg><span>லிங்கை காப்பி செய்ய</span></button></div>
       
       
       <div class="post-cta">
@@ -576,7 +625,7 @@ h1, h2, h3 { line-height: 1.35; letter-spacing: 0; }
         <span class="tag">புரோக்கர் &amp; கணக்கு</span>
         <h2>ஃபாரெக்ஸ் ப்ரோக்கரை எப்படித் தேர்வு செய்வது? தங்கம் டிரேடிங்கிற்கான பாதுகாப்பு செக்லிஸ்ட் (தமிழில்)</h2>
         <p>தங்கம் டிரேடிங்கிற்கு ஃபாரெக்ஸ் ப்ரோக்கரைத் தேர்வு செய்வது எப்படி: ரெகுலேட்டர் பதிவேட்டில் லைசென்ஸ், பணப் பாதுகாப்பு, உண்மையான செலவு, எக்ஸிகியூஷன், வித்ட்ராயல்.</p>
-        <span class="more"><time datetime="2026-10-23">23 அக்டோபர் 2026</time> · கட்டுரையைப் படிக்க · 5 நிமிட வாசிப்பு →</span>
+        <span class="more"><time datetime="2026-10-23">23 அக்டோபர் 2026</time> · கட்டுரையைப் படிக்க · 6 நிமிட வாசிப்பு →</span>
       </a><a class="card post-card" href="/ta/blog/what-is-xauusd-gold-trading-guide/">
         <span class="tag">ஆரம்பநிலை வழிகாட்டி</span>
         <h2>XAUUSD என்றால் என்ன? தங்க வர்த்தகம் – ஆரம்பநிலையாளர்களுக்கான தமிழ் வழிகாட்டி</h2>
@@ -615,5 +664,11 @@ h1, h2, h3 { line-height: 1.35; letter-spacing: 0; }
 (function(){var b=document.getElementById('menuBtn'),l=document.getElementById('links');
 b.addEventListener('click',function(){var o=l.classList.toggle('open');b.setAttribute('aria-expanded',String(o));});})();
 </script>
-</body>
+<script>
+(function(){document.querySelectorAll('.share').forEach(function(box){
+var url=box.dataset.url,title=box.dataset.title,n=box.querySelector('.share-native'),c=box.querySelector('.share-copy');
+if(navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:title,url:url}).catch(function(){});});}
+c.addEventListener('click',function(){var done=function(){c.querySelector('span').textContent=box.dataset.copied;};
+if(navigator.clipboard){navigator.clipboard.writeText(url).then(done,function(){prompt('',url);});}else{prompt('',url);}});});})();
+</script></body>
 </html>

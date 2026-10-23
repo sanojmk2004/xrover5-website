@@ -9,9 +9,11 @@ Run from anywhere:  python3 _blog/build.py
 Output
   /blog/ and /blog/<slug>/                 English
   /<lang>/blog/ and /<lang>/blog/<slug>/   Malayalam, Tamil, Hindi
-  plus the blog entries in sitemap.xml and hreflang links between language versions.
+  plus /blog/feed.xml and /<lang>/blog/feed.xml (RSS), share buttons, FAQPage data from <div class="faq">,
+  the blog entries in sitemap.xml and hreflang links between language versions.
 Uses the stylesheet, header and footer of contact/index.html so the blog matches the site."""
-import os, re, sys, json, html, glob, datetime, shutil
+import os, re, sys, json, html, glob, datetime, shutil, email.utils
+from urllib.parse import quote
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://xrover5.com"
@@ -41,6 +43,8 @@ L = {
    r_p="Open your MT4 or MT5 account with a partner broker through XDemat, connect it read-only, and receive a share of the IB commission on every lot you trade, paid to your crypto wallet. No extra cost to you.",
    r_reg="Create free rebate account", r_how="How it works",
    r_small="Rebates depend on the commission the broker actually pays and do not reduce trading risk. Check that the broker, crypto payouts and any tax on rebates are permitted where you live.",
+   share="Share this article", copy="Copy link", copied="Link copied", faq="Frequently asked questions",
+   feed_title="XRover 5 Blog — XAUUSD gold trading guides",
    cats={}),
  "ml": dict(name="മലയാളം", font="Noto Sans Malayalam", base="/ml/blog/",
    months="ജനുവരി ഫെബ്രുവരി മാർച്ച് ഏപ്രിൽ മേയ് ജൂൺ ജൂലൈ ഓഗസ്റ്റ് സെപ്റ്റംബർ ഒക്ടോബർ നവംബർ ഡിസംബർ".split(),
@@ -62,6 +66,8 @@ L = {
    r_p="XDemat വഴി ഒരു പാർട്ണർ ബ്രോക്കറിൽ MT4 അല്ലെങ്കിൽ MT5 അക്കൗണ്ട് തുറന്ന് റീഡ്-ഒൺലി ആയി കണക്റ്റ് ചെയ്യൂ. നിങ്ങൾ ട്രേഡ് ചെയ്യുന്ന ഓരോ ലോട്ടിലെയും IB കമ്മീഷന്റെ ഒരു വിഹിതം നിങ്ങളുടെ ക്രിപ്റ്റോ വാലറ്റിലേക്ക് ലഭിക്കും. നിങ്ങൾക്ക് അധിക ചെലവില്ല.",
    r_reg="സൗജന്യ റിബേറ്റ് അക്കൗണ്ട് തുടങ്ങൂ", r_how="ഇത് എങ്ങനെ പ്രവർത്തിക്കുന്നു",
    r_small="ബ്രോക്കർ യഥാർത്ഥത്തിൽ നൽകുന്ന കമ്മീഷനെ ആശ്രയിച്ചാണ് റിബേറ്റ്; ഇത് ട്രേഡിംഗ് റിസ്ക് കുറയ്ക്കുന്നില്ല. ബ്രോക്കറും ക്രിപ്റ്റോ പേഔട്ടുകളും നിങ്ങളുടെ രാജ്യത്ത് അനുവദനീയമാണോ എന്നും റിബേറ്റിന് നികുതി ബാധകമാണോ എന്നും പരിശോധിക്കുക.",
+   share="ഈ ലേഖനം ഷെയർ ചെയ്യൂ", copy="ലിങ്ക് കോപ്പി ചെയ്യൂ", copied="ലിങ്ക് കോപ്പി ചെയ്തു", faq="പതിവ് ചോദ്യങ്ങൾ",
+   feed_title="XRover 5 ബ്ലോഗ് — ഗോൾഡ് ട്രേഡിംഗ് മലയാളത്തിൽ",
    cats={"Beginner Guide": "തുടക്കക്കാർക്ക്", "Trading Sessions": "ട്രേഡിംഗ് സെഷനുകൾ", "Risk & Money": "റിസ്ക് & മണി",
          "Fundamentals": "ഫണ്ടമെന്റൽസ്", "Technical Analysis": "ടെക്നിക്കൽ അനാലിസിസ്", "Strategy": "സ്ട്രാറ്റജി",
          "Trading Psychology": "ട്രേഡിംഗ് സൈക്കോളജി", "Market Update": "മാർക്കറ്റ് അപ്ഡേറ്റ്",
@@ -86,6 +92,8 @@ L = {
    r_p="XDemat மூலம் ஒரு பார்ட்னர் புரோக்கரிடம் MT4 அல்லது MT5 கணக்கைத் திறந்து, அதை ரீட்-ஒன்லியாக இணைக்கவும். நீங்கள் வர்த்தகம் செய்யும் ஒவ்வொரு லாட்டிலும் IB கமிஷனின் ஒரு பங்கு உங்கள் கிரிப்டோ வாலட்டுக்கு வழங்கப்படும். உங்களுக்கு கூடுதல் செலவு இல்லை.",
    r_reg="இலவச ரிபேட் கணக்கை உருவாக்குங்கள்", r_how="இது எப்படி செயல்படுகிறது",
    r_small="ரிபேட் புரோக்கர் உண்மையில் செலுத்தும் கமிஷனைப் பொறுத்தது; இது வர்த்தக ஆபத்தைக் குறைக்காது. புரோக்கரும் கிரிப்டோ பேஅவுட்களும் உங்கள் நாட்டில் அனுமதிக்கப்படுகிறதா என்றும், ரிபேட்டுக்கு வரி உண்டா என்றும் சரிபாருங்கள்.",
+   share="இந்தக் கட்டுரையைப் பகிருங்கள்", copy="லிங்கை காப்பி செய்ய", copied="லிங்க் காப்பி ஆனது", faq="அடிக்கடி கேட்கப்படும் கேள்விகள்",
+   feed_title="XRover 5 வலைப்பதிவு — தங்கம் டிரேடிங் தமிழில்",
    cats={"Beginner Guide": "ஆரம்பநிலை வழிகாட்டி", "Trading Sessions": "வர்த்தக நேரங்கள்", "Risk & Money": "ரிஸ்க் & பணம்",
          "Fundamentals": "அடிப்படை பகுப்பாய்வு", "Technical Analysis": "டெக்னிக்கல் அனாலிசிஸ்", "Strategy": "உத்தி",
          "Trading Psychology": "வர்த்தக மனநிலை", "Market Update": "சந்தை நிலவரம்",
@@ -110,6 +118,8 @@ L = {
    r_p="XDemat के ज़रिए किसी पार्टनर ब्रोकर के साथ MT4 या MT5 अकाउंट खोलें और उसे रीड-ओनली जोड़ें। आपके हर ट्रेड किए गए लॉट पर IB कमीशन का एक हिस्सा आपके क्रिप्टो वॉलेट में दिया जाता है। आपको कोई अतिरिक्त खर्च नहीं।",
    r_reg="मुफ़्त रिबेट अकाउंट बनाएँ", r_how="यह कैसे काम करता है",
    r_small="रिबेट इस पर निर्भर है कि ब्रोकर असल में कितना कमीशन देता है; इससे ट्रेडिंग का जोखिम कम नहीं होता। जाँच लें कि ब्रोकर और क्रिप्टो पेआउट आपके देश में अनुमत हैं, और रिबेट पर टैक्स लगता है या नहीं।",
+   share="यह लेख शेयर करें", copy="लिंक कॉपी करें", copied="लिंक कॉपी हो गया", faq="अक्सर पूछे जाने वाले सवाल",
+   feed_title="XRover 5 ब्लॉग — गोल्ड ट्रेडिंग हिन्दी में",
    cats={"Beginner Guide": "शुरुआती गाइड", "Trading Sessions": "ट्रेडिंग सेशन", "Risk & Money": "रिस्क और मनी",
          "Fundamentals": "फंडामेंटल्स", "Technical Analysis": "टेक्निकल एनालिसिस", "Strategy": "स्ट्रैटेजी",
          "Trading Psychology": "ट्रेडिंग साइकोलॉजी", "Market Update": "मार्केट अपडेट",
@@ -217,6 +227,14 @@ BLOG_CSS = """<style>
 .post-cta p { color: var(--muted); }
 .post-risk { max-width: 760px; margin-top: 28px; font-size: 13px; color: var(--muted); }
 .related { margin-top: 64px; }
+.share { max-width: 760px; margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.share .lbl { font-weight: 700; color: var(--fg); margin-right: 4px; }
+.share a, .share button { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--fg); font: 600 14px var(--body); text-decoration: none; cursor: pointer; }
+.share a:hover, .share button:hover { border-color: color-mix(in oklab, var(--cyan) 50%, var(--line)); }
+.share svg { width: 16px; height: 16px; fill: currentColor; flex: none; }
+.article .faq { display: grid; gap: 10px; }
+.article .faq h3 { margin-top: .9em; color: var(--fg); }
+.article .faq h3 + p { margin-top: .35em; }
 .related h2 { font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; }
 </style>"""
 
@@ -307,6 +325,7 @@ def head(lang, title, desc, path, ogtype, ld, paths):
 <meta name="description" content="{d}">
 <link rel="canonical" href="{url}">
 {alternates(paths)}
+<link rel="alternate" type="application/rss+xml" title="{html.escape(L[lang]['feed_title'])}" href="{SITE}{L[lang]['base']}feed.xml">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#0a0b12">
 <meta property="og:type" content="{ogtype}">
@@ -339,7 +358,7 @@ def head(lang, title, desc, path, ogtype, ld, paths):
 {header}
 """
 
-def tail(): return f"\n{footer}\n\n{MENU_JS}\n</body>\n</html>\n"
+def tail(extra=""): return f"\n{footer}\n\n{MENU_JS}\n{extra}</body>\n</html>\n"
 
 def card(p):
     s = L[p["lang"]]
@@ -359,6 +378,46 @@ def localise_links(body, lang):
         return f'href="{L[lang]["base"]}{slug}/"' if slug in AVAIL[lang] else m.group(0)
     return re.sub(r'href="/blog/([a-z0-9-]+)/"', sub, body)
 
+# ---------------------------------------------------------------- share bar
+ICON_SHARE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7c0 .3 0 .5.1.8L8.4 11.2a3 3 0 1 0 0 3.6l6.7 3.4A3 3 0 1 0 18 16z"/></svg>'
+ICON_LINK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 1 0-1.4l3.5-3.5a1 1 0 1 1 1.4 1.4L12 13.4a1 1 0 0 1-1.4 0zM7.8 19.1a3.9 3.9 0 0 1-2.8-6.6l2.1-2.1a1 1 0 1 1 1.4 1.4l-2.1 2.1a1.9 1.9 0 0 0 2.7 2.7l2.1-2.1a1 1 0 1 1 1.4 1.4l-2.1 2.1a3.9 3.9 0 0 1-2.7 1.1zm8.5-5.1a1 1 0 0 1-.7-1.7l2.1-2.1a1.9 1.9 0 0 0-2.7-2.7L12.9 9.6a1 1 0 1 1-1.4-1.4l2.1-2.1a3.9 3.9 0 0 1 5.5 5.5L17 13.7a1 1 0 0 1-.7.3z"/></svg>'
+
+def share_bar(p):
+    """Share links (plain links, no third-party scripts) + copy-link and native-share buttons."""
+    s = L[p["lang"]]
+    url = SITE + p["path"]
+    u, t, tu = quote(url, safe=""), quote(p["title"], safe=""), quote(p["title"] + " " + url, safe="")
+    nets = [("WhatsApp", f"https://wa.me/?text={tu}"),
+            ("Telegram", f"https://t.me/share/url?url={u}&text={t}"),
+            ("X", f"https://twitter.com/intent/tweet?url={u}&text={t}"),
+            ("Facebook", f"https://www.facebook.com/sharer/sharer.php?u={u}"),
+            ("LinkedIn", f"https://www.linkedin.com/sharing/share-offsite/?url={u}")]
+    links = "".join(f'<a href="{html.escape(h)}" target="_blank" rel="noopener nofollow">{n}</a>' for n, h in nets)
+    return (f'<div class="share" data-url="{url}" data-title="{html.escape(p["title"])}" data-copied="{html.escape(s["copied"])}">'
+            f'<span class="lbl">{s["share"]}</span>'
+            f'<button type="button" class="share-native" hidden>{ICON_SHARE}{s["share"]}</button>{links}'
+            f'<button type="button" class="share-copy">{ICON_LINK}<span>{s["copy"]}</span></button></div>')
+
+SHARE_JS = """<script>
+(function(){document.querySelectorAll('.share').forEach(function(box){
+var url=box.dataset.url,title=box.dataset.title,n=box.querySelector('.share-native'),c=box.querySelector('.share-copy');
+if(navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:title,url:url}).catch(function(){});});}
+c.addEventListener('click',function(){var done=function(){c.querySelector('span').textContent=box.dataset.copied;};
+if(navigator.clipboard){navigator.clipboard.writeText(url).then(done,function(){prompt('',url);});}else{prompt('',url);}});});})();
+</script>"""
+
+# ---------------------------------------------------------------- FAQ (structured data)
+def faq_items(body, where):
+    """Reads <div class="faq"><h3>Question</h3><p>Answer</p>…</div> from the body."""
+    m = re.search(r'<div class="faq">(.*?)</div>', body, re.S)
+    if not m: return []
+    items = re.findall(r'<h3>(.*?)</h3>\s*(.*?)(?=<h3>|$)', m.group(1), re.S)
+    if not items: sys.exit(f"{where}: <div class=\"faq\"> needs <h3>question</h3><p>answer</p> pairs")
+    clean = lambda h: re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h))).strip()
+    out = [(clean(q), clean(a)) for q, a in items]
+    if any(not q or not a for q, a in out): sys.exit(f"{where}: empty FAQ question or answer")
+    return out
+
 ORG = {"@type": "Organization", "name": "XDemat", "url": "https://xrover5.com/", "logo": "https://xrover5.com/assets/xdemat-logo.webp"}
 
 # ---------------------------------------------------------------- build
@@ -376,6 +435,10 @@ for lang in LANGS:
                 {"@type": "ListItem", "position": 1, "name": s["home"], "item": SITE + "/"},
                 {"@type": "ListItem", "position": 2, "name": s["blog"], "item": SITE + s["base"]},
                 {"@type": "ListItem", "position": 3, "name": p['title'], "item": url}]}]}
+        faq = faq_items(p["body"], f"{lang}/{p['slug']}")
+        if faq:
+            ld["@graph"].append({"@type": "FAQPage", "inLanguage": lang, "mainEntity": [
+                {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]})
         others = [q for q in POSTS[lang] if q is not p]
         related = ([q for q in others if q["cat_en"] == p["cat_en"]] + [q for q in others if q["cat_en"] != p["cat_en"]])[:3]
         page = head(lang, f"{p['title']} | XRover 5 {s['blog'] if lang != 'en' else 'Blog'}", p['desc'], p["path"], "article", ld, paths) + f"""
@@ -392,6 +455,7 @@ for lang in LANGS:
       <article class="article">
 {localise_links(p['body'].strip(), lang)}
       </article>
+      {share_bar(p)}
       {rebate_box(lang) if p["rebate"] else ""}
       {brokers_box(lang) if p["brokers"] else ""}
       <div class="post-cta">
@@ -411,7 +475,7 @@ for lang in LANGS:
   </section>
 </div>
 </main>
-""" + tail()
+""" + tail(SHARE_JS)
         out = ROOT + p["path"]
         os.makedirs(out, exist_ok=True)
         open(out + "index.html", "w", encoding="utf-8").write(page)
@@ -461,6 +525,41 @@ for lang in LANGS:
     lines += [f"  <url><loc>{SITE}{p['path']}</loc><lastmod>{p['date']}</lastmod><priority>{'0.7' if lang == 'en' else '0.6'}</priority></url>" for p in POSTS[lang]]
 sm = re.sub(r"\s*</urlset>", "\n" + "\n".join(lines) + "\n</urlset>", sm)
 open(f"{ROOT}/sitemap.xml", "w", encoding="utf-8").write(sm)
+
+# RSS feeds: /blog/feed.xml and /<lang>/blog/feed.xml (latest 30 posts, full text)
+def absolute(body):
+    return re.sub(r'(href|src)="/', r'\1="' + SITE + '/', body)
+def cdata(t): return "<![CDATA[" + t.replace("]]>", "]]]]><![CDATA[>") + "]]>"
+for lang in LANGS:
+    s = L[lang]
+    if lang != "en" and not POSTS[lang]: continue
+    items = []
+    for p in POSTS[lang][:30]:
+        pub = email.utils.format_datetime(datetime.datetime.combine(p["d"], datetime.time(3, 30), datetime.timezone.utc))
+        items.append(f"""  <item>
+    <title>{html.escape(p['title'])}</title>
+    <link>{SITE}{p['path']}</link>
+    <guid isPermaLink="true">{SITE}{p['path']}</guid>
+    <pubDate>{pub}</pubDate>
+    <category>{html.escape(p['cat'])}</category>
+    <description>{html.escape(p['desc'])}</description>
+    <content:encoded>{cdata(absolute(localise_links(p['body'].strip(), lang)))}</content:encoded>
+  </item>""")
+    built = POSTS[lang][0]["d"] if POSTS[lang] else datetime.date.today()
+    feed = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+  <title>{html.escape(s['feed_title'])}</title>
+  <link>{SITE}{s['base']}</link>
+  <atom:link href="{SITE}{s['base']}feed.xml" rel="self" type="application/rss+xml"/>
+  <description>{html.escape(s['idx_desc'])}</description>
+  <language>{lang}</language>
+  <lastBuildDate>{email.utils.format_datetime(datetime.datetime.combine(built, datetime.time(3, 30), datetime.timezone.utc))}</lastBuildDate>
+{chr(10).join(items)}
+</channel>
+</rss>
+"""
+    open(ROOT + s["base"] + "feed.xml", "w", encoding="utf-8").write(feed)
 
 print("built:", ", ".join(f"{lang} {len(POSTS[lang])}" for lang in LANGS))
 missing = {lang: sorted(AVAIL["en"] - AVAIL[lang]) for lang in LANGS[1:]}

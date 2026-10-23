@@ -19,9 +19,10 @@ The blog at https://xrover5.com/blog/ is generated from the files in `_blog/post
    <h2>…</h2>
    ```
    The body is plain HTML: `<p> <h2> <h3> <ul>/<ol> <li> <strong> <em> <a>`, plus
-   `<div class="note"><b>Label:</b> text</div>`, `<div class="formula">…</div>` and tables wrapped in
+   `<div class="note"><b>Label:</b> text</div>`, `<div class="formula">…</div>`, the FAQ block (see "FAQ block" below) and tables wrapped in
    `<div class="table-wrap"><table>…</table></div>`. No `<h1>` (the title becomes the h1), no images, no scripts, no inline styles.
-2. Run `python3 _blog/build.py`. It rebuilds `blog/`, the blog index and the blog entries in `sitemap.xml`,
+2. Run `python3 _blog/build.py`. It rebuilds `blog/`, the blog index, the RSS feeds (`/blog/feed.xml`, `/<lang>/blog/feed.xml`),
+   the share buttons, the FAQ structured data and the blog entries in `sitemap.xml`,
    and stops with an error if the front matter is incomplete or a slug is duplicated.
 3. Commit and push to `main`. The cPanel cron copies it live.
 
@@ -46,6 +47,8 @@ Every English article is also published in Malayalam, Tamil and Hindi at `/ml/bl
 - Times: IST first, GMT in brackets, e.g. "19:00 IST (13:30 GMT)".
 - Title and description: use the phrases people type in that language, e.g. "ഗോൾഡ് ട്രേഡിംഗ് മലയാളം",
   "தங்கம் டிரேடிங் தமிழ்", "गोल्ड ट्रेडिंग हिन्दी में".
+- Translate the FAQ block too, with the heading "പതിവ് ചോദ്യങ്ങൾ" / "அடிக்கடி கேட்கப்படும் கேள்விகள்" / "अक्सर पूछे जाने वाले सवाल".
+  Write the questions the way people search in that language.
 - Keep exactly the same HTML structure as the English post. Leave links as `/blog/<slug>/` — the build points them to the
   same-language version when it exists.
 - All writing rules above apply unchanged (no profit promises, no broker names in text, accurate facts, illustrative prices).
@@ -58,7 +61,7 @@ Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical 
 - Audience: retail traders worldwide — especially India, the Middle East, South-East Asia and Africa — beginner to intermediate.
   Topic focus: XAUUSD (gold). Write in simple international English (many readers are not native speakers): short sentences,
   no idioms or slang, explain every term once.
-- 900–1,400 words, short paragraphs, practical and specific. Give times in GMT first with IST in brackets,
+- 900–1,400 words (not counting the FAQ block), short paragraphs, practical and specific. Give times in GMT first with IST in brackets,
   e.g. "13:30 GMT (19:00 IST)", and note daylight-saving changes where relevant. Use USD for money examples.
 - Write titles and descriptions people actually search for worldwide (e.g. "forex rebate", "forex cashback",
   "how to choose a forex broker"), with the main phrase early in the title.
@@ -72,7 +75,22 @@ Beginner Guide · Trading Sessions · Risk & Money · Fundamentals · Technical 
   Adaptive Zone Technology, Intelligent Stop Loss Zones, Dynamic Profit Targeting TP1/TP2/TP3, Beginner Safe Exit Mode,
   Professional Trader Mode, News Data Awareness, Trade Opportunity Countdown, Telegram notifications,
   built-in strategy library, Fear Exit Mode). Do not invent features or performance numbers.
-  The page template already adds a "Book a Demo" box and a risk note — don't repeat them.
+  The page template already adds a "Book a Demo" box, share buttons and a risk note — don't repeat them.
+- After that paragraph, finish every post with the FAQ block (see below).
+
+### FAQ block
+Every post ends with 3–4 short questions and answers, after the closing XRover 5 paragraph:
+```
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<h3>Question as people type it into Google?</h3>
+<p>Direct answer in 1–3 sentences.</p>
+</div>
+```
+- Use questions people really search ("How much is 1 pip on gold?"). The answer must stand on its own and repeat
+  only facts already in the article. Plain text only inside `<h3>`/`<p>` (no links, no tags, no nested divs).
+- The build turns these into FAQPage structured data, so the answers must be accurate and carry the same caveats as the article.
+  Don't write questions about XRover 5 performance or broker recommendations.
 - Original writing only — never copy text from other websites.
 
 ### Broker and account-opening articles
