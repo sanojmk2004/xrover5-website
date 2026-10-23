@@ -7,8 +7,8 @@ Only MT5 accounts are tracked this way; MT4 lots come from broker IB reports.
 
 1. Install on the VPS
    - Octa MT5 and Switch Markets MT5 (from each broker's website). Open each once.
-   - Python 3 from python.org - tick "Add python.exe to PATH" on the first screen.
-   - Open Command Prompt and run:   pip install MetaTrader5
+   - Python 3.13 (64-bit) from python.org - tick "Add python.exe to PATH" on the first screen.
+   - Open Command Prompt and run:   pip install MetaTrader5 truststore certifi
 
 2. Put the files in C:\xr5sync\
    - xr5_lot_sync.py, start-sync.bat, config.example.json

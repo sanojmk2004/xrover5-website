@@ -43,6 +43,24 @@ def load_config():
     return cfg
 
 
+def ssl_context():
+    """HTTPS trust: use Windows' own certificate check (truststore) which fetches missing root
+    certificates automatically; fall back to the certifi bundle, then Python's default."""
+    try:
+        import truststore
+        return truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+    except ImportError:
+        pass
+    try:
+        import certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except ImportError:
+        return ssl.create_default_context()
+
+
+SSL_CTX = None
+
+
 def api(cfg, action, query="", body=None):
     url = f"{cfg['site_url']}/api/lots.php?action={action}{query}"
     data = json.dumps(body).encode() if body is not None else None
@@ -50,10 +68,16 @@ def api(cfg, action, query="", body=None):
         "X-Sync-Token": cfg["token"], "Content-Type": "application/json",
         "User-Agent": "XR5-LotSync/1.0", "Accept": "application/json"})
     try:
-        with urllib.request.urlopen(req, timeout=60, context=ssl.create_default_context()) as r:
+        global SSL_CTX
+        SSL_CTX = SSL_CTX or ssl_context()
+        with urllib.request.urlopen(req, timeout=60, context=SSL_CTX) as r:
             return json.loads(r.read().decode() or "{}")
     except urllib.error.HTTPError as e:
         raise RuntimeError(f"website said {e.code}: {e.read().decode(errors='replace')[:200]}")
+    except urllib.error.URLError as e:
+        if "CERTIFICATE_VERIFY_FAILED" in str(e):
+            raise RuntimeError("HTTPS certificate check failed. Run:  pip install truststore certifi  then start again")
+        raise
 
 
 def read_lots(from_day):
