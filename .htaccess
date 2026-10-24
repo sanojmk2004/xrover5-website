@@ -1,4 +1,6 @@
 # Always use HTTPS and the www-less address
+ErrorDocument 404 /404.html
+
 RewriteEngine On
 RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
