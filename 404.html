@@ -212,6 +212,21 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
 </style>
 <style>
 /* XRover Tech */
+.mods { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px; margin-top: 8px; }
+.mods .card h3 { display: flex; align-items: center; gap: 10px; }
+.mods .card h3 i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.mods .card ul { margin: 0; padding-left: 1.1em; color: var(--muted); display: grid; gap: 6px; font-size: 15px; }
+.hl { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 14px; margin: 26px 0 10px; }
+.hl div { background: color-mix(in oklab, #8b6cff 12%, var(--surface)); border: 1px solid color-mix(in oklab, #8b6cff 40%, var(--line)); border-radius: 14px; padding: 16px 18px; }
+.hl b { display: block; font-size: 16px; margin-bottom: 4px; } .hl span { color: var(--muted); font-size: 14px; }
+.wa { background: linear-gradient(170deg, var(--surface-2), var(--bg-2)); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: grid; gap: 10px; font-size: 14px; }
+.wa .hd { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.bub { max-width: 82%; padding: 10px 12px; border-radius: 12px; line-height: 1.45; }
+.bub.in { background: var(--surface); border: 1px solid var(--line); justify-self: start; }
+.bub.out { background: color-mix(in oklab, #25d366 22%, var(--surface)); border: 1px solid color-mix(in oklab, #25d366 40%, var(--line)); justify-self: end; }
+.bub small { display: block; color: var(--muted); font-size: 11px; margin-top: 4px; }
+.callbar { display: flex; gap: 10px; align-items: center; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.callbar .dot { width: 10px; height: 10px; border-radius: 50%; background: #25d366; box-shadow: 0 0 0 4px color-mix(in oklab, #25d366 25%, transparent); }
 .wordmark { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 18px; letter-spacing: .01em; color: var(--fg); }
 .wordmark svg { width: 34px; height: 34px; flex: none; }
 .wordmark span b { color: var(--ember); font-weight: 800; }
