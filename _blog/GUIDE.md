@@ -135,7 +135,6 @@ Every post ends with 3–4 short questions and answers, after the closing XRover
 ## Topic backlog
 Pick the first unused topic, or a new XAUUSD topic not already covered by a file in `posts/`.
 Delete a line from this list when you publish it.
-- What makes XRover 5 the Intelligent Candle Trading System — and how it differs from ordinary candle tools (category: XRover 5)
 - Why professional traders use XRover 5: confirmation, structure and control (category: XRover 5)
 - What is an introducing broker (IB)? How IB commissions are paid and shared (category: IB Rebates)
 - XRover 5 vs traditional candlestick systems, indicators and order flow: an honest comparison (category: XRover 5)
