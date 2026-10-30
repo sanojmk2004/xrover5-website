@@ -8,11 +8,11 @@
 main() {
   REPO="$HOME/repositories/xrover5-website"
   SITE="https://xrover5.com"
-  SKIP=" .git README.md deploy.sh _blog "
+  SKIP=" .git README.md deploy.sh _blog _site "
   cd "$REPO" || exit 1
   git fetch -q origin main || exit 1
   OLD=$(git rev-parse HEAD)
-  if [ "$OLD" != "$(git rev-parse origin/main)" ] || [ "$1" = "--force" ] || [ ! -e "$HOME/public_html/blog" ]; then
+  if [ "$OLD" != "$(git rev-parse origin/main)" ] || [ "$1" = "--force" ]; then
     git reset -q --hard origin/main
     for item in * .htaccess; do
       case "$SKIP" in *" $item "*) continue ;; esac
