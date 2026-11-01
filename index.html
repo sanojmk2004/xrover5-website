@@ -279,6 +279,7 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
 .cta2 h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 600; }
 .foot .about { max-width: 46ch; }
 </style>
+
 </head>
 <body>
 <header class="nav">
@@ -289,6 +290,7 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
       <a href="/" aria-current="page">Home</a>
       <a href="/products/">Products</a>
       <a href="/services/">Services</a>
+      <a href="/blog/">Blog</a>
       <a href="/contact/">Contact Us</a>
       <a href="/contact/" class="btn btn-primary">Get in touch</a>
     </nav>
@@ -372,6 +374,61 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
   </section>
 
   <section class="band">
+    <div class="wrap">
+      <div class="band-head"><span class="eyebrow">From the blog</span><h2>Latest articles</h2></div>
+      <style>
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 20px; }
+.post-card { text-decoration: none; transition: border-color .2s, transform .2s; }
+.post-card:hover { border-color: color-mix(in oklab, var(--cyan) 50%, var(--line)); transform: translateY(-2px); }
+.post-card .tag, .post-meta .tag { font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); }
+.post-card h2, .post-card h3 { font-size: 1.15rem; font-weight: 600; line-height: 1.3; font-family: var(--display); }
+.post-card .more { color: var(--ember); font-weight: 700; font-size: 14px; }
+.post-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; color: var(--muted); font-size: 14px; }
+.crumbs { font-size: 14px; color: var(--muted); } .crumbs a { color: var(--muted); text-decoration: none; } .crumbs a:hover { color: var(--fg); }
+.article { max-width: 760px; font-size: 1.05rem; line-height: 1.75; }
+.article > * + * { margin-top: 1.1em; }
+.article h2 { font-size: clamp(1.35rem, 2.6vw, 1.7rem); font-weight: 600; margin-top: 2em; }
+.article h3 { font: 700 1.12rem var(--body); margin-top: 1.6em; }
+.article p, .article li { color: #cfd3e3; }
+.article strong { color: var(--fg); }
+.article a { color: var(--cyan); text-underline-offset: 3px; }
+.article ul, .article ol { padding-left: 1.3em; }
+.article li + li { margin-top: .45em; }
+.article .note { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--cyan); border-radius: 10px; padding: 14px 18px; color: var(--muted); font-size: .97rem; }
+.article .note b { color: var(--fg); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+.article table { width: 100%; border-collapse: collapse; font-size: .95rem; min-width: 520px; }
+.article th, .article td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.article th { background: var(--surface-2); color: var(--fg); }
+.article tr:last-child td { border-bottom: 0; }
+.article .faq h3 { margin-top: 1.3em; }
+.post-cta { margin-top: 48px; background: linear-gradient(160deg, var(--surface-2), var(--bg-2)); border: 1px solid var(--line); border-radius: 18px; padding: clamp(22px, 4vw, 34px); display: grid; gap: 14px; max-width: 760px; }
+.post-cta h2 { font-size: 1.35rem; font-weight: 600; } .post-cta p { color: var(--muted); }
+.related { margin-top: 64px; } .related > h2 { font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; }
+</style>
+      <div class="blog-grid">
+      <a class="card post-card" href="/blog/xrover-crm-all-in-one-business-software/">
+        <span class="tag">Product Guide</span>
+        <h3>XRover CRM: One System for Leads, WhatsApp, HR and Accounts</h3>
+        <p>How XRover CRM brings lead management, WhatsApp Business API messaging and calls, automated follow-ups, HR and accounts into one business system.</p>
+        <span class="more"><time datetime="2026-11-01">1 November 2026</time> · 4 min read →</span>
+      </a><a class="card post-card" href="/blog/xrover-5-chart-analysis-software-for-tradingview/">
+        <span class="tag">Product Guide</span>
+        <h3>Inside XRover 5: How Our Intelligent Candle System Works on TradingView</h3>
+        <p>A look at XRover 5, XRover Tech&#x27;s chart-analysis software for TradingView: real-time candle analysis, adaptive zones, two display modes, dashboard and Telegram alerts.</p>
+        <span class="more"><time datetime="2026-11-01">1 November 2026</time> · 3 min read →</span>
+      </a><a class="card post-card" href="/blog/whatsapp-business-api-vs-whatsapp-business-app/">
+        <span class="tag">WhatsApp Automation</span>
+        <h3>WhatsApp Business API vs WhatsApp Business App: Which Does Your Team Need?</h3>
+        <p>The WhatsApp Business app and the WhatsApp Business API compared: team access, automation, chatbots, follow-ups, voice calls and CRM integration.</p>
+        <span class="more"><time datetime="2026-11-01">1 November 2026</time> · 4 min read →</span>
+      </a>
+      </div>
+      <div class="btn-row" style="margin-top:28px"><a class="btn btn-ghost" href="/blog/">All articles →</a></div>
+    </div>
+  </section>
+
+  <section class="band">
     <div class="wrap cta2">
       <span class="eyebrow">Let's talk</span>
       <h2>Have a product idea or a process to automate?</h2>
@@ -390,7 +447,7 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
         <small>XRover Tech builds software products and custom business software. Kannur, Kerala, India.</small>
       </div>
       <nav aria-label="Footer">
-        <a href="/">Home</a><a href="/products/">Products</a><a href="/services/">Services</a><a href="/contact/">Contact Us</a><a href="mailto:info@xrover5.com">info@xrover5.com</a>
+        <a href="/">Home</a><a href="/products/">Products</a><a href="/services/">Services</a><a href="/blog/">Blog</a><a href="/contact/">Contact Us</a><a href="mailto:info@xrover5.com">info@xrover5.com</a>
       </nav>
       <small style="margin:0">© 2026 XRover Tech. All rights reserved.</small>
     </div>

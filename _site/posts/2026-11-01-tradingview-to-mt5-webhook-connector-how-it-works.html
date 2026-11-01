@@ -1,0 +1,61 @@
+<!--
+slug: tradingview-to-mt5-webhook-connector-how-it-works
+title: How a TradingView to MT5 Connector Works: Webhooks, Cloud Relay and MT5 Add-on
+description: A plain-language guide to connecting TradingView alerts to MetaTrader 5: webhooks, a cloud relay, an MT5 add-on with licence keys, logs and setup tips.
+category: Automation
+product: connector
+date: 2026-11-01
+-->
+<p>TradingView and MetaTrader 5 are two of the most widely used tools on traders' screens. TradingView is popular for charting, indicators and alerts. MetaTrader 5 (MT5) is a widely used desktop and VPS terminal. Out of the box, the two do not talk to each other. An alert on TradingView does nothing in MT5 unless someone acts on it by hand.</p>
+<p>A <strong>TradingView to MT5 connector</strong> closes that gap with software. This article explains, in plain language, how such a connector works and how we designed ours.</p>
+
+<h2>The three parts</h2>
+<h3>1. TradingView alerts with a webhook</h3>
+<p>TradingView can send an alert to a web address, called a <strong>webhook URL</strong>, at the moment the alert fires. The alert carries a message that you define, usually in a structured format such as JSON, describing what the receiving software should do.</p>
+<h3>2. A cloud relay</h3>
+<p>The relay is a small, always-on server that receives the webhook. It checks that the message is genuine (for example, with a secret key), records it in a log, and holds it until the user's MT5 add-on collects it. A relay matters because a home computer or terminal is not a reliable public web server, while a cloud service is always online.</p>
+<h3>3. An MT5 add-on</h3>
+<p>Inside MetaTrader 5, an add-on (an Expert Advisor) connects to the relay, picks up new instructions for that user and applies them in the user's own terminal, according to the settings the user has chosen. Each add-on is activated with a <strong>licence key</strong>, so only paying users can connect.</p>
+
+<h2>The journey of one alert</h2>
+<ol>
+<li>A TradingView alert fires and sends its message to the webhook URL.</li>
+<li>The cloud relay checks the secret key and logs the message.</li>
+<li>The MT5 add-on, running in the user's terminal or VPS, receives the message from the relay.</li>
+<li>The add-on applies it according to the user's settings and reports back.</li>
+<li>The user sees the result and the full history in the activity log.</li>
+</ol>
+
+<h2>What makes a connector reliable</h2>
+<ul>
+<li><strong>Security.</strong> Secret keys on webhooks and licence keys on the add-on stop others from sending or receiving instructions.</li>
+<li><strong>Logs and status.</strong> Every message received, delivered or rejected is recorded, and the dashboard shows whether the terminal is connected.</li>
+<li><strong>Retries.</strong> Short network interruptions should not lose messages; the relay keeps them until delivery is confirmed.</li>
+<li><strong>Low delay.</strong> The relay and add-on are designed to pass messages through quickly.</li>
+<li><strong>The user stays in control.</strong> The software runs in the user's own MT5 terminal, with settings the user chooses and can change or switch off at any time.</li>
+</ul>
+
+<h2>Setup tips for MetaTrader 5</h2>
+<ul>
+<li>Run MT5 on a computer or VPS that stays on, so the add-on is always connected.</li>
+<li>In MT5, algorithmic trading must be enabled for Expert Advisors to act.</li>
+<li>If an add-on talks to a web service, that address usually has to be added to the list of allowed URLs in MT5's Expert Advisor options.</li>
+<li>Test everything on a demo account first and read the activity log until you are sure the setup behaves as expected.</li>
+</ul>
+
+<div class="note"><b>Software, not advice.</b> A connector is automation software. It passes on the instructions that the user sets up and does not decide anything on its own. Users configure and control their own accounts and settings.</div>
+
+<h2>The XRover Tech TradingView → MT5 Connector</h2>
+<p>Our connector follows exactly this design: TradingView alert webhooks, a secure cloud relay, and a licensed MT5 add-on that runs in the user's own terminal or VPS, with activity logs, retries and a connection status dashboard. It is designed for simple setup with no coding. It is coming soon, and you can join the waiting list today.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<h3>Can TradingView connect to MetaTrader 5 directly?</h3>
+<p>Not by itself. A connector is needed: TradingView sends alerts to a webhook URL, and software passes them to an add-on running in MetaTrader 5.</p>
+<h3>What is a webhook in TradingView?</h3>
+<p>A webhook is a web address that TradingView sends an alert's message to at the moment the alert fires, so other software can receive it automatically.</p>
+<h3>Why use a cloud relay instead of sending alerts straight to MT5?</h3>
+<p>MT5 terminals are not public web servers. A cloud relay is always online, checks that messages are genuine, logs them and holds them until the MT5 add-on collects them.</p>
+<h3>Do I need a VPS for a TradingView to MT5 connector?</h3>
+<p>MT5 must be running for the add-on to receive messages, so many users run it on a VPS that stays on. A computer that is always on also works.</p>
+</div>

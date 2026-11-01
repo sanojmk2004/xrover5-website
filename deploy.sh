@@ -15,7 +15,8 @@ main() {
   if [ "$OLD" != "$(git rev-parse origin/main)" ] || [ "$1" = "--force" ]; then
     git reset -q --hard origin/main
     for item in * .htaccess; do
-      case "$SKIP" in *" $item "*) continue ;; esac
+      case "$item" in _*) continue ;; esac   # _blog, _site: sources, never published
+    case "$SKIP" in *" $item "*) continue ;; esac
       [ -e "$item" ] && cp -r "$item" "$HOME/public_html/"
     done
     indexnow "$OLD"

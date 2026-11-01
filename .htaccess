@@ -11,8 +11,10 @@ RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 RewriteCond %{THE_REQUEST} \s/index\.html[\s?] [NC]
 RewriteRule ^index\.html$ / [L,R=301]
 
-# Removed sections (blog in all languages) return 410 Gone
-RewriteRule ^(blog|ml|ta|hi)(/.*)?$ - [G,L]
+# Old trading blog (archived): those articles and the translated sections return 410 Gone
+RewriteRule ^(ml|ta|hi)(/.*)?$ - [G,L]
+RewriteRule ^blog/(best-time-to-trade-xauusd-in-india-ist|candlestick-patterns-for-xauusd-trading|what-is-xauusd-gold-trading-guide|what-moves-gold-prices-xauusd-drivers|xauusd-lot-size-pip-value-position-sizing|xauusd-risk-management-rules|how-to-choose-a-forex-broker-for-gold-trading|how-to-open-a-forex-trading-account-step-by-step|what-is-a-forex-rebate-ib-cashback|xrover-5-intelligent-candle-trading-system-explained)(/.*)?$ - [G,L]
+RewriteRule ^blog/feed\.xml$ - [G,L]
 
 # Rebate portal stays usable but out of search results
 <IfModule mod_headers.c>
