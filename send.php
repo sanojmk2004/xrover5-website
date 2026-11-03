@@ -1,5 +1,6 @@
 <?php
-// XRover 5 contact form handler. Sends the form to the address below.
+// XRover 5 contact form handler. Creates a lead in the CRM (which emails a copy to the address below);
+// if the CRM is unavailable, emails the form directly.
 $TO   = 'info@xrover5.com';
 $FROM = 'info@xrover5.com'; // must be a real mailbox on the domain this site is hosted on
 
@@ -44,6 +45,52 @@ if ($fh = @fopen($leadFile, 'a')) {
   fclose($fh);
 }
 
+// 1) Send the enquiry into the CRM (crm.xrover5.com on this same hosting account).
+//    The CRM assigns it to a salesperson and emails a copy to $TO through Private Email.
+//    No password is needed here: the CRM code is loaded straight from its folder.
+$home = dirname(__DIR__);
+$crmFile = '';
+foreach ([
+  $home . '/crm.xrover5.com',
+  $home . '/public_html/crm.xrover5.com',
+  $home . '/public_html/crm',
+  $home . '/crm',
+  __DIR__ . '/crm',
+  __DIR__ . '/crm.xrover5.com',
+] as $dir) {
+  if (is_file($dir . '/inc/website_lead.php')) { $crmFile = $dir . '/inc/website_lead.php'; break; }
+}
+if ($crmFile === '') {
+  // last resort: look one level down for any folder that holds the CRM
+  foreach ((array)@glob($home . '/*/inc/website_lead.php') + (array)@glob($home . '/public_html/*/inc/website_lead.php') as $f) { $crmFile = $f; break; }
+}
+if ($crmFile === '') {
+  error_log('XRover 5 contact form: CRM folder not found under ' . $home . ' - enquiry was emailed only, no CRM lead');
+  @file_put_contents($home . '/xrover5-crm-errors.log', date('Y-m-d H:i:s') . " CRM folder not found, emailed only\n", FILE_APPEND);
+}
+if ($crmFile !== '') {
+  try {
+    require $crmFile;
+    $r = crm_website_enquiry([
+      'name' => $name, 'mobile' => $mobile, 'message' => $message, 'notify' => $TO,
+      'ip' => $_SERVER['REMOTE_ADDR'] ?? '', 'page' => $_SERVER['HTTP_REFERER'] ?? '',
+    ]);
+    if (!empty($r['ok'])) {
+      echo json_encode(['ok' => true]);
+      exit;
+    }
+    if (!empty($r['error'])) {
+      http_response_code(422);
+      echo json_encode(['ok' => false, 'error' => $r['error']]);
+      exit;
+    }
+  } catch (Throwable $e) {
+    error_log('XRover 5 contact form: CRM not reachable, emailing instead: ' . $e->getMessage());
+    @file_put_contents($home . '/xrover5-crm-errors.log', date('Y-m-d H:i:s') . ' ' . $e->getMessage() . "\n", FILE_APPEND);
+  }
+}
+
+// 2) Fallback if the CRM is unavailable: plain email from the hosting server.
 $subject = 'XRover 5 website enquiry from ' . $name;
 $body  = "New message from the XRover 5 website\n\n";
 $body .= "Name:    $name\n";
