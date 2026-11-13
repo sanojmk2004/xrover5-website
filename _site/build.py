@@ -592,5 +592,46 @@ write("services/index.html", page("/services/", "Custom Software Development Ser
 write("contact/index.html", page("/contact/", "Contact XRover Tech – Software Company, Kerala, India",
       "Contact XRover Tech for product demos, early access or custom software projects. Email info@xrover5.com or chat on WhatsApp +91 62383 77856.", contact, contact_ld, js=COPY_JS))
 write("404.html", page("/404.html", "Page not found | XRover Tech", "Page not found.", nf, noindex=True))
+# Short link: https://xrover5.com/whatsapp  -> opens WhatsApp chat (optional ?from=instagram adds the source to the message)
+_wa_page = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chat with XRover Tech on WhatsApp</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Chat with XRover Tech on WhatsApp.">
+<meta property="og:title" content="Chat with XRover Tech on WhatsApp">
+<meta property="og:description" content="Tap to start a WhatsApp chat with XRover Tech.">
+<meta property="og:image" content="{SITE}/assets/og-xrover-tech.jpg">
+<meta http-equiv="refresh" content="2;url={html.escape(WA_LINK)}">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<style>
+:root {{ color-scheme: dark; }}
+body {{ margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0a0b12; color: #eceef6; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; text-align: center; padding: 24px; box-sizing: border-box; }}
+a.btn {{ display: inline-flex; gap: 8px; align-items: center; background: #25d366; color: #06210f; font-weight: 700; text-decoration: none; padding: 14px 22px; border-radius: 999px; margin-top: 18px; }}
+a.btn svg {{ width: 20px; height: 20px; }}
+p {{ color: #9aa0b6; }}
+</style>
+</head>
+<body>
+<main>
+  <h1 style="font-size:1.4rem;margin:0">Opening WhatsApp…</h1>
+  <p>If WhatsApp does not open automatically, tap the button.</p>
+  <a class="btn" id="go" href="{html.escape(WA_LINK)}">{WA_ICON}Chat on WhatsApp</a>
+</main>
+<script>
+(function(){{
+  var q = new URLSearchParams(location.search), src = (q.get('from') || '').replace(/[^A-Za-z0-9_ .-]/g, '').slice(0, 40);
+  var url = 'https://wa.me/{WA_NUMBER}?text=' + encodeURIComponent({json.dumps(WA_TEXT)} + (src ? ' (via ' + src + ')' : '') + '. ');
+  document.getElementById('go').href = url;
+  location.replace(url);
+}})();
+</script>
+</body>
+</html>
+"""
+write("whatsapp/index.html", _wa_page)
+
 write("sitemap.xml", SITEMAP)
 print("built: 4 pages, 404, blog", len(POSTS), "posts")
