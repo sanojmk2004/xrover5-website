@@ -13,6 +13,16 @@ FORM_JS = open(os.path.join(HERE, "contact-form.js"), encoding="utf-8").read()
 
 PHONE = "+91 97473 69666"
 EMAIL = "info@xrover5.com"
+# "Get in touch" opens WhatsApp chat with a pre-filled message (page added by WA_JS below)
+from urllib.parse import quote as _q
+WA_NUMBER = "919747369666"
+WA_TEXT = "Hi XRover Tech, I'm contacting you from your website xrover5.com"
+WA_LINK = f"https://wa.me/{WA_NUMBER}?text={_q(WA_TEXT)}"
+WA_ATTR = f'href="{WA_LINK}" target="_blank" rel="noopener" data-wa'
+WA_JS = """document.querySelectorAll('a[data-wa]').forEach(function(a){
+  var pg = location.pathname === '/' ? '' : ' (page: ' + location.pathname + ')';
+  a.href = 'https://wa.me/""" + WA_NUMBER + """?text=' + encodeURIComponent(""" + json.dumps(WA_TEXT) + """ + pg + '. ');
+});"""
 
 ORG = {"@type": "Organization", "@id": f"{SITE}/#org", "name": "XRover Tech", "url": SITE + "/",
        "logo": f"{SITE}/assets/favicon.png", "email": EMAIL, "telephone": "+919747369666",
@@ -102,7 +112,7 @@ def header(cur):
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="links">Menu</button>
     <nav class="links" id="links" aria-label="Main">
       {links}
-      <a href="/contact/" class="btn btn-primary">Get in touch</a>
+      <a {WA_ATTR} class="btn btn-primary">Get in touch</a>
     </nav>
   </div>
 </header>"""
@@ -180,6 +190,7 @@ def page(path, title, desc, body, graph_extra=(), js="", noindex=False, ogtype="
 
 <script>
 {MENU_JS}
+{WA_JS}
 (function(){{
 {js}
 }})();
@@ -293,7 +304,7 @@ def home_body(LATEST_SECTION): return f"""  <div class="wrap hero2">
       <span class="eyebrow">Let's talk</span>
       <h2>Have a product idea or a process to automate?</h2>
       <p class="lead">Tell us what you need. We'll reply with next steps, usually within one business day.</p>
-      <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" href="/contact/">Get in touch</a><a class="btn btn-ghost" href="/services/">See services</a></div>
+      <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" {WA_ATTR}>Get in touch</a><a class="btn btn-ghost" href="/services/">See services</a></div>
     </div>
   </section>"""
 
@@ -504,7 +515,7 @@ services = f"""  <div class="wrap page-head">
   <section class="band">
     <div class="wrap cta2">
       <h2>Tell us what you want to build</h2>
-      <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" href="/contact/">Get in touch</a></div>
+      <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" {WA_ATTR}>Get in touch</a></div>
     </div>
   </section>"""
 faq_ld = [{"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}]

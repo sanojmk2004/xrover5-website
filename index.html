@@ -292,7 +292,7 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
       <a href="/services/">Services</a>
       <a href="/blog/">Blog</a>
       <a href="/contact/">Contact Us</a>
-      <a href="/contact/" class="btn btn-primary">Get in touch</a>
+      <a href="https://wa.me/919747369666?text=Hi%20XRover%20Tech%2C%20I%27m%20contacting%20you%20from%20your%20website%20xrover5.com" target="_blank" rel="noopener" data-wa class="btn btn-primary">Get in touch</a>
     </nav>
   </div>
 </header>
@@ -433,7 +433,7 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
       <span class="eyebrow">Let's talk</span>
       <h2>Have a product idea or a process to automate?</h2>
       <p class="lead">Tell us what you need. We'll reply with next steps, usually within one business day.</p>
-      <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" href="/contact/">Get in touch</a><a class="btn btn-ghost" href="/services/">See services</a></div>
+      <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" href="https://wa.me/919747369666?text=Hi%20XRover%20Tech%2C%20I%27m%20contacting%20you%20from%20your%20website%20xrover5.com" target="_blank" rel="noopener" data-wa>Get in touch</a><a class="btn btn-ghost" href="/services/">See services</a></div>
     </div>
   </section>
 </div>
@@ -457,6 +457,10 @@ footer { border-top: 1px solid var(--line); background: var(--bg-2); padding-blo
 <script>
 (function(){var b=document.getElementById('menuBtn'),l=document.getElementById('links');
 b.addEventListener('click',function(){var o=l.classList.toggle('open');b.setAttribute('aria-expanded',String(o));});})();
+document.querySelectorAll('a[data-wa]').forEach(function(a){
+  var pg = location.pathname === '/' ? '' : ' (page: ' + location.pathname + ')';
+  a.href = 'https://wa.me/919747369666?text=' + encodeURIComponent("Hi XRover Tech, I'm contacting you from your website xrover5.com" + pg + '. ');
+});
 (function(){
 
 })();
