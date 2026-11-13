@@ -11,27 +11,41 @@ SITE = "https://xrover5.com"
 BASE_CSS = "<style>\n" + open(os.path.join(HERE, "base.css"), encoding="utf-8").read() + "</style>"
 FORM_JS = open(os.path.join(HERE, "contact-form.js"), encoding="utf-8").read()
 
-PHONE = "+91 97473 69666"
+PHONE = "+91 62383 77856"
 EMAIL = "info@xrover5.com"
 # "Get in touch" opens WhatsApp chat with a pre-filled message (page added by WA_JS below)
 from urllib.parse import quote as _q
-WA_NUMBER = "919747369666"
+WA_NUMBER = "916238377856"
 WA_TEXT = "Hi XRover Tech, I'm contacting you from your website xrover5.com"
 WA_LINK = f"https://wa.me/{WA_NUMBER}?text={_q(WA_TEXT)}"
 WA_ATTR = f'href="{WA_LINK}" target="_blank" rel="noopener" data-wa'
+WA_ICON = '<svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.85 9.85 0 0 0 12.04 2zm5.78 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-1.13.07-1.82-.11a16.6 16.6 0 0 1-1.65-.61 12.9 12.9 0 0 1-4.95-4.37c-.6-.8-1.29-2.13-1.29-3.4 0-1.27.67-1.9.9-2.16.24-.26.52-.32.7-.32h.5c.16 0 .38-.06.59.45.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.09.18-.14.3-.28.46-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.07.95 1.97 1.24 2.25 1.38.28.14.45.12.61-.07.17-.19.7-.82.89-1.1.19-.28.37-.23.63-.14.26.09 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.68-.17 1.36z"/></svg>'
+def wa_btn(label, topic=""):
+    tp = f' data-topic="{html.escape(topic)}"' if topic else ""
+    return f'<a class="btn btn-wa" {WA_ATTR}{tp}>{WA_ICON}{label}</a>'
 WA_JS = """document.querySelectorAll('a[data-wa]').forEach(function(a){
   var pg = location.pathname === '/' ? '' : ' (page: ' + location.pathname + ')';
-  a.href = 'https://wa.me/""" + WA_NUMBER + """?text=' + encodeURIComponent(""" + json.dumps(WA_TEXT) + """ + pg + '. ');
+  var tp = a.dataset.topic ? ' about ' + a.dataset.topic : '';
+  a.href = 'https://wa.me/""" + WA_NUMBER + """?text=' + encodeURIComponent(""" + json.dumps(WA_TEXT) + """ + tp + pg + '. ');
 });"""
 
 ORG = {"@type": "Organization", "@id": f"{SITE}/#org", "name": "XRover Tech", "url": SITE + "/",
-       "logo": f"{SITE}/assets/favicon.png", "email": EMAIL, "telephone": "+919747369666",
+       "logo": f"{SITE}/assets/favicon.png", "email": EMAIL, "telephone": "+916238377856",
        "description": "Software company building SaaS products, TradingView tools and custom business software.",
        "address": {"@type": "PostalAddress", "addressLocality": "Kannur", "addressRegion": "Kerala", "addressCountry": "IN"}}
 WEBSITE = {"@type": "WebSite", "@id": f"{SITE}/#website", "url": SITE + "/", "name": "XRover Tech", "publisher": {"@id": f"{SITE}/#org"}}
 
 CSS = """<style>
 /* XRover Tech */
+.btn-wa { background: #25d366; color: #06210f; border: 1px solid #25d366; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; }
+.btn-wa:hover { background: #3ee07a; border-color: #3ee07a; color: #06210f; }
+.btn-wa .wa-ic { width: 19px; height: 19px; flex: none; }
+.nav .links a.btn-wa, .nav .links a.btn-wa:hover { color: #06210f; background: #25d366; opacity: 1; }
+.nav .links a.btn-wa:hover { background: #3ee07a; }
+.wa-card { display: grid; gap: 16px; justify-items: start; background: linear-gradient(160deg, color-mix(in oklab, #25d366 14%, var(--surface-2)), var(--bg-2)); border: 1px solid color-mix(in oklab, #25d366 40%, var(--line)); border-radius: 18px; padding: clamp(22px, 4vw, 34px); }
+.wa-card h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 600; }
+.wa-card p { color: var(--muted); }
+.wa-card .btn-wa { font-size: 17px; padding: 14px 22px; }
 .mods { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px; margin-top: 8px; }
 .mods .card h3 { display: flex; align-items: center; gap: 10px; }
 .mods .card h3 i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
@@ -112,7 +126,7 @@ def header(cur):
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="links">Menu</button>
     <nav class="links" id="links" aria-label="Main">
       {links}
-      <a {WA_ATTR} class="btn btn-primary">Get in touch</a>
+      {wa_btn("Chat on WhatsApp")}
     </nav>
   </div>
 </header>"""
@@ -258,7 +272,7 @@ def home_body(LATEST_SECTION): return f"""  <div class="wrap hero2">
       <span class="eyebrow">XRover Tech · Software company · Kerala, India</span>
       <h1>We build software that <em>automates real work.</em></h1>
       <p class="lead">XRover Tech designs, builds and supports business software: an all-in-one CRM with WhatsApp Business API, SaaS products, TradingView tools and custom applications.</p>
-      <div class="btn-row" style="margin-top:28px"><a class="btn btn-primary" href="/products/">Explore our products</a><a class="btn btn-ghost" href="/contact/">Start a project</a></div>
+      <div class="btn-row" style="margin-top:28px"><a class="btn btn-primary" href="/products/">Explore our products</a>{wa_btn("Start a project", "a software project")}</div>
     </div>
     <div class="stack" aria-label="XRover Tech products">
       <div class="bar"><i></i><i></i><i></i></div>
@@ -304,7 +318,7 @@ def home_body(LATEST_SECTION): return f"""  <div class="wrap hero2">
       <span class="eyebrow">Let's talk</span>
       <h2>Have a product idea or a process to automate?</h2>
       <p class="lead">Tell us what you need. We'll reply with next steps, usually within one business day.</p>
-      <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" {WA_ATTR}>Get in touch</a><a class="btn btn-ghost" href="/services/">See services</a></div>
+      <div class="btn-row" style="justify-content:center">{wa_btn("Get in touch")}<a class="btn btn-ghost" href="/services/">See services</a></div>
     </div>
   </section>"""
 
@@ -329,7 +343,7 @@ products = f"""  <div class="wrap page-head">
           <div><b>WhatsApp chatbot</b><span>Instant auto-replies with buttons and AI until your team takes over.</span></div>
           <div><b>One shared inbox</b><span>WhatsApp chats and company email in one place for your team.</span></div>
         </div>
-        <div class="btn-row" style="margin-top:12px"><a class="btn btn-primary" href="/contact/">Book a CRM demo</a></div>
+        <div class="btn-row" style="margin-top:12px">{wa_btn("Book a CRM demo", "an XRover CRM demo")}</div>
       </div>
       <div class="wa" aria-hidden="true">
         <div class="hd"><b>WhatsApp · New lead</b><span class="pill live">Auto-assigned</span></div>
@@ -392,7 +406,7 @@ products = f"""  <div class="wrap page-head">
           <div class="price"><b>USD 499</b><small>per month, full software access</small></div>
           <div class="price"><b>USD 9</b><small>one-time live product demo</small></div>
         </div>
-        <div class="btn-row" style="margin-top:22px"><a class="btn btn-primary" href="/contact/">Book a demo</a></div>
+        <div class="btn-row" style="margin-top:22px">{wa_btn("Book a demo", "an XRover 5 demo")}</div>
         <p class="note-sm">XRover 5 is delivered as an invite-only TradingView script. It is analysis software only: it does not give advice, hold funds or place orders.</p>
       </div>
       <div class="shot"><img src="/assets/xrover5-chart.webp" alt="XRover 5 indicator running on a TradingView chart with its on-chart zones and dashboard" width="1790" height="828" loading="lazy"></div>
@@ -410,7 +424,7 @@ products = f"""  <div class="wrap page-head">
                 "Suggests improvements to ad scripts and creatives",
                 "Connects directly to your Meta ad accounts",
                 "AI-assisted ad setup from uploaded videos"])}
-        <div class="btn-row" style="margin-top:22px"><a class="btn btn-primary" href="/contact/">Request early access</a></div>
+        <div class="btn-row" style="margin-top:22px">{wa_btn("Request early access", "AdClearX early access")}</div>
       </div>
       <div class="mock" aria-hidden="true">
         <div class="row"><span>video_ad_v3.mp4</span><span class="ok">Policy check passed</span></div>
@@ -433,7 +447,7 @@ products = f"""  <div class="wrap page-head">
                 "Runs in the user's own MetaTrader 5 terminal or VPS",
                 "Activity logs, retries and connection status",
                 "Simple setup with no coding required"])}
-        <div class="btn-row" style="margin-top:22px"><a class="btn btn-primary" href="/contact/">Join the waiting list</a></div>
+        <div class="btn-row" style="margin-top:22px">{wa_btn("Join the waiting list", "the TradingView to MT5 Connector waiting list")}</div>
         <p class="note-sm">The connector is automation software. Users configure and control their own MetaTrader 5 accounts and settings.</p>
       </div>
       <div class="mock" aria-hidden="true">
@@ -448,7 +462,7 @@ products = f"""  <div class="wrap page-head">
   <section class="band">
     <div class="wrap cta2">
       <h2>Want a demo or early access?</h2>
-      <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" href="/contact/">Contact us</a></div>
+      <div class="btn-row" style="justify-content:center">{wa_btn("Contact us")}</div>
     </div>
   </section>"""
 prod_ld = [{"@type": "ItemList", "name": "XRover Tech products", "itemListElement": [
@@ -468,7 +482,7 @@ services = f"""  <div class="wrap page-head">
     <span class="eyebrow">Services</span>
     <h1>Custom software development</h1>
     <p class="lead">The same team and stack behind our own products, working on yours: web apps, SaaS, automation, integrations and TradingView tools.</p>
-    <div class="btn-row"><a class="btn btn-primary" href="/contact/">Start a project</a></div>
+    <div class="btn-row">{wa_btn("Start a project", "a software project")}</div>
   </div>
 
   <section class="band" style="padding-top:36px">
@@ -515,7 +529,7 @@ services = f"""  <div class="wrap page-head">
   <section class="band">
     <div class="wrap cta2">
       <h2>Tell us what you want to build</h2>
-      <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" {WA_ATTR}>Get in touch</a></div>
+      <div class="btn-row" style="justify-content:center">{wa_btn("Get in touch")}</div>
     </div>
   </section>"""
 faq_ld = [{"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}]
@@ -524,28 +538,22 @@ faq_ld = [{"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "
 contact = f"""  <div class="wrap page-head">
     <span class="eyebrow">Contact Us</span>
     <h1>Talk to XRover Tech</h1>
-    <p class="lead">Ask about our products, book a product demo or tell us about a software project. Send a message, email or call us.</p>
+    <p class="lead">Ask about our products, book a product demo or tell us about a software project. Chat with us on WhatsApp or send an email.</p>
   </div>
 
   <section class="band" style="padding-top:36px">
     <div class="wrap contact-grid">
-      <form id="contactForm" novalidate style="position:relative">
-        <div class="row2">
-          <label for="cf-name">Name<input id="cf-name" name="name" autocomplete="name" required placeholder="Your name"></label>
-          <label for="cf-mobile">Mobile<input id="cf-mobile" name="mobile" type="tel" autocomplete="tel" required placeholder="+91"></label>
-        </div>
-        <label for="cf-msg">Message<textarea id="cf-msg" name="message" required placeholder="Tell us what you need, e.g. a product demo or a custom software project"></textarea></label>
-        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-        <div id="formStatus" class="status" hidden></div>
-        <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between">
-          <span class="form-note">We usually reply within one business day.</span>
-          <button class="btn btn-primary" type="submit">Send message</button>
-        </div>
-      </form>
+      <div class="wa-card">
+        <span class="eyebrow">Fastest reply</span>
+        <h2>Chat with us on WhatsApp</h2>
+        <p>Ask about our products, book a demo or tell us about your project. Tap the button and your message to XRover Tech opens in WhatsApp.</p>
+        {wa_btn("Chat on WhatsApp")}
+        <small style="color:var(--muted)">WhatsApp {PHONE}</small>
+      </div>
 
       <div class="info">
         <div class="card"><span class="k">Email</span><span class="v" id="cEmail">{EMAIL}</span><button class="copy" type="button" data-copy="cEmail">Copy</button></div>
-        <div class="card"><span class="k">Phone / WhatsApp</span><span class="v" id="cPhone">{PHONE}</span><button class="copy" type="button" data-copy="cPhone">Copy</button></div>
+        <div class="card"><span class="k">WhatsApp</span><span class="v" id="cPhone">{PHONE}</span><button class="copy" type="button" data-copy="cPhone">Copy</button></div>
         <div class="card"><span class="k">Location</span><span class="v">Kannur, Kerala, India</span></div>
         <div class="card"><span class="k">Company</span><span class="v">XRover Tech</span><small style="color:var(--muted)">Software products & custom development</small></div>
       </div>
@@ -565,7 +573,7 @@ nf = """  <div class="wrap page-head">
     <span class="eyebrow">Error 404</span>
     <h1>This page could not be found</h1>
     <p class="lead">The link may be old or mistyped. Try one of these instead.</p>
-    <div class="btn-row"><a class="btn btn-primary" href="/">Home</a><a class="btn btn-ghost" href="/products/">Products</a><a class="btn btn-ghost" href="/services/">Services</a><a class="btn btn-ghost" href="/contact/">Contact us</a></div>
+    <div class="btn-row"><a class="btn btn-primary" href="/">Home</a><a class="btn btn-ghost" href="/products/">Products</a><a class="btn btn-ghost" href="/services/">Services</a>{wa_btn("Contact us")}</div>
   </div>
   <section class="band" style="padding-top:20px"><div class="wrap"></div></section>"""
 
@@ -582,7 +590,7 @@ write("products/index.html", page("/products/", "Products – XRover CRM, XRover
 write("services/index.html", page("/services/", "Custom Software Development Services | XRover Tech",
       "Web apps, SaaS, automation and API integrations, CRM tools, AI features and TradingView Pine Script development by XRover Tech, Kerala, India.", services, faq_ld))
 write("contact/index.html", page("/contact/", "Contact XRover Tech – Software Company, Kerala, India",
-      "Contact XRover Tech for product demos, early access or custom software projects. Email info@xrover5.com or call / WhatsApp +91 97473 69666.", contact, contact_ld, js=FORM_JS + COPY_JS))
+      "Contact XRover Tech for product demos, early access or custom software projects. Email info@xrover5.com or chat on WhatsApp +91 62383 77856.", contact, contact_ld, js=COPY_JS))
 write("404.html", page("/404.html", "Page not found | XRover Tech", "Page not found.", nf, noindex=True))
 write("sitemap.xml", SITEMAP)
 print("built: 4 pages, 404, blog", len(POSTS), "posts")

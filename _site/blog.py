@@ -106,7 +106,7 @@ for p in POSTS:
       <aside class="post-cta">
         <span class="eyebrow">{html.escape(name)}</span>
         <h2>{html.escape(line)}</h2>
-        <div class="btn-row"><a class="btn btn-primary" href="/contact/">{btn}</a><a class="btn btn-ghost" href="{href}">Learn more</a></div>
+        <div class="btn-row">{wa_btn(btn, name)}<a class="btn btn-ghost" href="{href}">Learn more</a></div>
       </aside>
       {f'<div class="related"><h2>Keep reading</h2><div class="blog-grid">{"".join(post_card(r, "h3") for r in related)}</div></div>' if related else ''}
     </div>
