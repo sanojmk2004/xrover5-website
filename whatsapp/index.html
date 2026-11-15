@@ -3,6 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) – Google Ads AW-18549387221 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18549387221"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18549387221');
+</script>
+
+<!-- Lead conversion: fire on WhatsApp / email clicks -->
+<script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var h = a.href.toLowerCase();
+    var isLead = h.indexOf('wa.me') > -1 ||
+                 h.indexOf('api.whatsapp.com') > -1 ||
+                 h.indexOf('whatsapp://') === 0 ||
+                 h.indexOf('mailto:') === 0;
+    if (isLead) {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18549387221/X6LGCKHd_rgdENXfhI1F',
+        'transport_type': 'beacon'
+      });
+    }
+  }, true);
+</script>
 <title>Chat with XRover Tech on WhatsApp</title>
 <meta name="robots" content="noindex">
 <meta name="description" content="Chat with XRover Tech on WhatsApp.">
@@ -30,7 +57,9 @@ p { color: #9aa0b6; }
   var q = new URLSearchParams(location.search), src = (q.get('from') || '').replace(/[^A-Za-z0-9_ .-]/g, '').slice(0, 40);
   var url = 'https://wa.me/916238377856?text=' + encodeURIComponent("Hi XRover Tech, I'm contacting you from your website xrover5.com" + (src ? ' (via ' + src + ')' : '') + '. ');
   document.getElementById('go').href = url;
-  location.replace(url);
+  var done = false, go = function () { if (!done) { done = true; location.replace(url); } };
+  try { gtag('event', 'conversion', { 'send_to': 'AW-18549387221/X6LGCKHd_rgdENXfhI1F', 'transport_type': 'beacon', 'event_callback': go }); } catch (e) {}
+  setTimeout(go, 800);
 })();
 </script>
 </body>

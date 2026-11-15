@@ -3,6 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Google tag (gtag.js) – Google Ads AW-18549387221 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18549387221"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18549387221');
+</script>
+
+<!-- Lead conversion: fire on WhatsApp / email clicks -->
+<script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var h = a.href.toLowerCase();
+    var isLead = h.indexOf('wa.me') > -1 ||
+                 h.indexOf('api.whatsapp.com') > -1 ||
+                 h.indexOf('whatsapp://') === 0 ||
+                 h.indexOf('mailto:') === 0;
+    if (isLead) {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18549387221/X6LGCKHd_rgdENXfhI1F',
+        'transport_type': 'beacon'
+      });
+    }
+  }, true);
+</script>
 <title>Blog – CRM, WhatsApp Automation, Meta Ads &amp; TradingView Software | XRover Tech</title>
 <meta name="description" content="Guides from XRover Tech on CRM and WhatsApp Business API automation, Meta ad policy checks, TradingView tools and custom business software.">
 <link rel="canonical" href="https://xrover5.com/blog/">

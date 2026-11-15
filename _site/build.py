@@ -9,6 +9,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 SITE = "https://xrover5.com"
 BASE_CSS = "<style>\n" + open(os.path.join(HERE, "base.css"), encoding="utf-8").read() + "</style>"
+GADS_TAG = open(os.path.join(HERE, "google-ads-tag.html"), encoding="utf-8").read().strip()   # Google Ads tag, in <head> of every page
 FORM_JS = open(os.path.join(HERE, "contact-form.js"), encoding="utf-8").read()
 
 PHONE = "+91 62383 77856"
@@ -161,6 +162,7 @@ def page(path, title, desc, body, graph_extra=(), js="", noindex=False, ogtype="
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{GADS_TAG}
 <title>{t}</title>
 <meta name="description" content="{d}">
 <link rel="canonical" href="{url}">
@@ -598,6 +600,7 @@ _wa_page = f"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{GADS_TAG}
 <title>Chat with XRover Tech on WhatsApp</title>
 <meta name="robots" content="noindex">
 <meta name="description" content="Chat with XRover Tech on WhatsApp.">
@@ -625,7 +628,9 @@ p {{ color: #9aa0b6; }}
   var q = new URLSearchParams(location.search), src = (q.get('from') || '').replace(/[^A-Za-z0-9_ .-]/g, '').slice(0, 40);
   var url = 'https://wa.me/{WA_NUMBER}?text=' + encodeURIComponent({json.dumps(WA_TEXT)} + (src ? ' (via ' + src + ')' : '') + '. ');
   document.getElementById('go').href = url;
-  location.replace(url);
+  var done = false, go = function () {{ if (!done) {{ done = true; location.replace(url); }} }};
+  try {{ gtag('event', 'conversion', {{ 'send_to': 'AW-18549387221/X6LGCKHd_rgdENXfhI1F', 'transport_type': 'beacon', 'event_callback': go }}); }} catch (e) {{}}
+  setTimeout(go, 800);
 }})();
 </script>
 </body>
